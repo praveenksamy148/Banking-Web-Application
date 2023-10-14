@@ -25,6 +25,7 @@
                 
                 //encrypt password 
                 $hash_password = password_hash($password, PASSWORD_BCRYPT); 
+                echo $hash_password;
 
                 $errors = array(); 
                 if(empty($firstName) OR empty($lastName) OR empty($email)OR empty($dateOfBirth)OR empty($address)OR empty($zipcode)OR empty($ssn)OR empty($password)OR empty($repeatPassword)){
@@ -45,12 +46,13 @@
                     }
                 }else{
                     require_once "database.php"; 
-                    $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$password')";
+                    $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$hash_password')";
                     $results = mysqli_query($connection, $sql); 
                     if($results){
                         echo "<div class= 'alert alert-success'>Successfully Registered</div>";
                     }else{
                         echo "<div class= 'alert alert-danger'>Unable to Register</div>";
+                        echo mysqli_error($connection); 
                     }
                 }
             }
