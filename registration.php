@@ -25,7 +25,7 @@
                 
                 //encrypt password 
                 $hash_password = password_hash($password, PASSWORD_BCRYPT); 
-                echo $hash_password;
+                // echo $hash_password;
 
                 $errors = array(); 
                 if(empty($firstName) OR empty($lastName) OR empty($email)OR empty($dateOfBirth)OR empty($address)OR empty($zipcode)OR empty($ssn)OR empty($password)OR empty($repeatPassword)){
@@ -40,12 +40,17 @@
                 if($password != $repeatPassword){
                     array_push($errors, "Passwords entered don't match!");
                 }
+                require_once "database.php"; 
+                $dupEmail = "SELECT * FROM user_info WHERE email = '$email'"; 
+                $copied = mysqli_query($connection, $dupEmail); 
+                if(!$copied || mysqli_num_rows($copied) > 0){
+                    array_push($errors, "Username already exists"); 
+                }
                 if(count($errors) > 0){
                     foreach($errors as $error){
                         echo "<div class= 'alert alert-danger'>$error</div>";
                     }
                 }else{
-                    require_once "database.php"; 
                     $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$hash_password')";
                     $results = mysqli_query($connection, $sql); 
                     if($results){
