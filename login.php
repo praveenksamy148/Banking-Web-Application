@@ -12,52 +12,59 @@ if(isset($_SESSION["user"])){
     <title>Banking Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Custom CSS for a black, gray, and white theme */
+        /* Custom CSS for a maroon and gold theme with improved fonts */
         body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
+            background-color: maroon;
+            color: gold;
+            font-family: 'Open Sans', sans-serif;
             text-align: center;
         }
 
         .container {
-            background-color: #333;
-            border: 1px solid #888;
+            background-color: maroon;
+            border: 1px solid gold;
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
         }
 
+        .form-group {
+            margin-bottom: 20px;
+        }
+
         .form-control {
-            background-color: #fff;
-            color: #000;
-            border: 1px solid #ccc;
+            background-color: gold;
+            color: maroon;
+            border: 1px solid maroon;
             border-radius: 5px;
-            margin: 5px 0;
             padding: 10px;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .btn-primary {
-            background-color: #000;
-            color: #fff;
+            background-color: gold;
+            color: maroon;
             border: none;
             border-radius: 5px;
             padding: 10px 20px;
             cursor: pointer;
+            font-family: 'Playfair Display', serif;
         }
 
         .btn-primary:hover {
-            background-color: #333;
+            background-color: #d4af37;
         }
 
         .alert {
-            background-color: #fff;
-            color: #000;
-            border: 1px solid #ccc;
+            background-color: gold;
+            color: maroon;
+            border: 1px solid maroon;
             border-radius: 5px;
             margin: 10px 0;
             padding: 10px;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .logo {
@@ -65,16 +72,25 @@ if(isset($_SESSION["user"])){
             display: block;
             margin: 0 auto 20px;
         }
-        .buttonSize {
-            width: 300px; 
-            margin: 12px; 
-            height: 100px;
+
+        #buttonSize {
+            background-color: gold;
+            color: maroon;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+        }
+
+        #buttonSize:hover {
+            background-color: #d4af37;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>User Login</h1>
+        <h1><b>User Login</b></h1>
         <?php 
         if(isset($_POST["login"])){
             $email = $_POST["email"]; 
