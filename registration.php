@@ -80,6 +80,10 @@
         #buttonSize:hover {
             background-color: #d4af37;
         }
+        img{
+            height: 200px; 
+            width: 400px; 
+        }
     </style>
 </head>
 <body>
@@ -87,7 +91,7 @@
         <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
     </div>
     <div class="container">
-    <h1 style= "text-align: center"><b>Register</b></h1>
+    <h1 style= "color:white; text-align: center"><b>Register</b></h1>
         <form action="registration.php" method="post">
             <?php
             if(isset($_POST["submit"])){
@@ -132,7 +136,8 @@
                     $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$hash_password')";
                     $results = mysqli_query($connection, $sql); 
                     if($results){
-                        echo "<div class= 'alert alert-success'>Successfully Registered</div>";
+                        header("Location: login.php");
+
                     }else{
                         echo "<div class= 'alert alert-danger'>Unable to Register</div>";
                         echo mysqli_error($connection); 
@@ -150,7 +155,7 @@
                 <input type = "email" name = "email" placeholder = "Email: ">
             </div>
             <div class = "form-group">
-                <input type = "date" name = "dateOfBirth" placeholder = "Date of Birth: ">
+                <input type = "date" name = "dateOfBirth" placeholder = "Date of Birth: " onfocus= "(this.type='date')" onblur="(this.type='text')">
             </div>
             <div class = "form-group">
                 <input type = "text" name = "address" placeholder = "Permanent Address: ">
@@ -172,8 +177,10 @@
             </div>
         </form>
         <div>
-            <p>Already have an account? <button onclick="window.location.href = 'login.php'" id="buttonSize">Login Here</button></p>
+            <p>Already have an account?</p>
+            
         </div>
+        <button onclick="window.location.href = 'login.php'" id="buttonSize">Login Here</button>
     </div>
 </body>
 </html>
