@@ -63,6 +63,7 @@ input[type="submit"]:hover {
 h1 {
     text-align: center;
     color: #333;
+    font-size: 40px;
 }
 
 /* Style for the error message (you may need to implement PHP for this) */
