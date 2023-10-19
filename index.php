@@ -1,3 +1,9 @@
+<?php 
+session_start(); 
+if(!isset($_SESSION["user"])){
+    header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +15,11 @@
 </head>
 <body>
     <div class="container">
-        <?php
+        <!-- <?php
         echo "<div class = 'alert alert-success'>Login Successful!</div>";
-        ?>
-    <h1>FUCK RAYMONNDDD</h1>
+        ?> -->
+    <h1>User Dashboard</h1>
+    <a href = "logout.php" class = "btn btn-warning">Logout</a>
     </div>
     
 </body>

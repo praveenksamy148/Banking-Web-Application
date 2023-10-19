@@ -92,6 +92,7 @@
             <div class = "form-group">
                 <input type = "submit" value = "Register" name = "submit" >
             </div>
+            <div><p>Already have account? <a href = "login.php">Login Here</a></p></div>
     
 </body>
 </html>
