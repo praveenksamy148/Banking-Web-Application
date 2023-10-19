@@ -87,9 +87,9 @@
     </style>
 </head>
 <body>
-    <div class="image-section">
+    <!-- <div class="image-section">
         <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
-    </div>
+    </div> -->
     <div class="container">
     <h1 style= "color:white; text-align: center"><b>Register</b></h1>
         <form action="registration.php" method="post">

@@ -90,7 +90,7 @@ if(isset($_SESSION["user"])){
 </head>
 <body>
     <div class="container">
-        <h1><b>User Login</b></h1>
+        <h1 style= "color:white"><b>User Login</b></h1>
         <?php 
         if(isset($_POST["login"])){
             $email = $_POST["email"]; 
