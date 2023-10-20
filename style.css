@@ -1,0 +1,91 @@
+.topRight {
+    color:rgb(215, 215, 215);
+    font-family: "Montserrat", sans-serif;
+}
+
+.topRight a {
+    text-decoration: none;
+    color:currentColor;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.topRight a:visited {
+    color:currentColor;
+}
+
+.topRight a:hover {
+    color: rgb(255, 115, 0);
+}
+
+header {
+    background-color: rgb(80, 23, 23);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+body {
+    background-image: url("musa.jpg");
+    background-color: rgba(255,255,255,.99);
+    background-blend-mode: lighten;
+    padding: 0;
+    margin: 0;
+}
+
+.grayBar {
+    box-sizing: border-box;
+    background-color: #453b51;
+    height: 15px;
+    width: 100%;
+}
+
+.centerBox {
+    margin: 15px;
+    padding: 15px;
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    border-radius: 15px;
+    overflow: hidden;
+    background-image: url("homeBackground.png");
+    background-color: rgba(255,255,255,.8);
+    background-blend-mode: lighten;
+    border: 2px solid black;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.centerBoxLeft {
+    padding-bottom: 8%;
+    padding-top: 8%;
+    padding-left: 3%;
+    text-align: center;
+    color: rgb(20, 20, 20);
+    font-family: "Montserrat", sans-serif;
+    font-size: xx-large;
+}
+
+.centerBoxRight {
+    text-align: center;
+    padding-right: 3%;
+    color: rgb(20, 20, 20);
+    font-family: "Montserrat", sans-serif;
+    font-size: xx-large;
+}
+
+.centerBoxRight a {
+    text-decoration: none;
+    color: rgb(255, 109, 56);
+    text-align: right;
+    margin-right: 15px;
+}
+
+.centerBox a:visited {
+    color:currentColor;
+}
+
+.centerBox a:hover {
+    color:red;
+}
