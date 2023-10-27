@@ -1,7 +1,7 @@
 <?php 
 session_start(); 
-if(isset($_SESSION["user"])){
-    header("location: index.php");
+if(!isset($_SESSION["user"])){
+    header("location: login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ if(isset($_SESSION["user"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Login</title>
+    <title>Banking Registration</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -86,52 +86,46 @@ if(isset($_SESSION["user"])){
         #buttonSize:hover {
             background-color: #d4af37;
         }
+        img{
+            height: 200px; 
+            width: 400px; 
+        }
     </style>
 </head>
 <body>
+    <!-- <div class="image-section">
+        <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
+    </div> -->
     <div class="container">
-        <h1 style= "color:white"><b>User Login</b></h1>
-        <?php 
-        if(isset($_POST["login"])){
-            $email = $_POST["email"]; 
-            $password = $_POST["password"]; 
-            require_once "database.php"; 
-            $query = "SELECT * FROM user_info WHERE email = '$email'"; 
-            $result = mysqli_query($connection, $query); 
-            if(!$result){
-                die("Query failed: ". mysqli_error($connection)); 
-            }
-            if(mysqli_num_rows($result) == 1){
-                $row = mysqli_fetch_assoc($result); 
-                if(password_verify($password, $row["password"])){
-                    session_start();
-                    $_SESSION["user"] = "yes"; 
-                    $_SESSION["userID"] = $row["ID"]; 
-                    header("Location: index.php");
-                    echo "<div class='alert alert-success'>Login Successful!</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Incorrect Login!</div>";
-                }
-            } else {
-                echo "User not found."; 
-            }
-            mysqli_close($connection); 
-        }
-        ?>
-        <form action="login.php" method="post">
-            <div class="form-group">
-                <input type="email" placeholder="Enter Email:" name="email" class="form-control">
+    <h1 style= "color:white; text-align: center"><b>Register</b></h1>
+        <form action="NewAccConfirm.php" method="post">
+            <?php
+            if(isset($_POST["submit"])){
+                $accType = $_POST["accType"]; 
+                $money = $_POST["money"]; 
+                $accID = $_SESSION["userID"];
+                require_once "database.php"; 
+                $sql = "INSERT INTO account_info (accID, money, accType) VALUES ('$accID','$money', '$accType')";
+                $results = mysqli_query($connection, $sql); 
+
+                  if($results){
+                      header("Location: login.php");
+
+                  }else{
+                      echo "<div class= 'alert alert-danger'>Unable to Register</div>";
+                      echo mysqli_error($connection); 
+                  }
+              }
+             ?>
+            <div class = "form-group">
+                <input type = "text" name = "accType" placeholder = "Account Type: ">
             </div>
-            <div class="form-group">
-                <input type="password" placeholder="Enter Password:" name="password" class="form-control">
+            <div class = "form-group">
+                <input type = "number" name = "money" placeholder = "Money: ">
             </div>
-            <div class="form-btn">
-                <input type="submit" value="Login" name="login" class="btn btn-primary">
+            <div class = "form-group">
+                <input type = "submit" value = "Enter" name = "submit" >
             </div>
-        </form>
-        <div>
-            <p>Haven't registered yet?</p><button onclick = "window.location.href = 'registration.php'" id = "buttonSize">Register Here</button>
-        </div>
     </div>
 </body>
 </html>
