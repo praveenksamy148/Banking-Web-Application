@@ -1,9 +1,9 @@
 <?php
-$hostName = "localhost"; 
-$dbUser = "root"; 
+$hostName = "localhost";
+$dbUser = "root";
 $dbPassword = "";
-$connection = mysqli_connect($hostName, $dbUser, $dbPassword, "bank users");
+$connection = mysqli_connect($hostName, $dbUser, $dbPassword, "bank_users");
 if(!$connection){
-    die("Database not connecting"); 
+    die("Database not connecting");
 }
  ?>
