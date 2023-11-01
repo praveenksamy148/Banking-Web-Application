@@ -105,12 +105,10 @@
                 $row = mysqli_fetch_assoc($result); 
                 if(password_verify($password, $row["password"])){
                     session_start();
+                    $_SESSION["user"] = "yes"; 
                     $firstName = $row["first_name"]; 
-                    // $_SESSION["user"] = "yes"; 
                     $_SESSION["username"] = $row["email"]; 
                     $_SESSION["userID"] = $row["ID"]; 
-                    // $_SESSION["firstName"] = $row["firstName"]; 
-                    // $_SESSION["lastName"] = $row["lastName"]; 
                     $mail = new PHPMailer(true); 
                     try{
                         $mail->SMTPDebug = 0; 
@@ -130,9 +128,8 @@
                         mysqli_query($connection, $sql); 
                         $mail->Subject = 'User Authentication';
                         $mail->Body = '<p> Your verification code is: <b style = "font-size: 30px;">' . $code . '</b></p>'; 
-                        echo "here";
                         $mail->send(); 
-                        echo "sent"; 
+                        header("Location: authenticate.php"); 
                     }catch(Exception $e){
                         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                     }  
