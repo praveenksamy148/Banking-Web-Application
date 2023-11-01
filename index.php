@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 session_start(); 
 if(!isset($_SESSION["user"])){
     header("location: login.php");
@@ -24,4 +24,4 @@ if(!isset($_SESSION["user"])){
     <button onclick="window.location.href = 'NewAccConfirm.php'" id="buttonSize">Make Account Here</button>
 
 </body>
-</html>
+</html> -->

@@ -1,9 +1,4 @@
-<?php 
-session_start(); 
-if(isset($_SESSION["user"])){
-    header("location: index.php");
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,7 +86,12 @@ if(isset($_SESSION["user"])){
 <body>
     <div class="container">
         <h1 style= "color:white"><b>User Login</b></h1>
-        <?php 
+    <?php 
+        use PHPMailer\PHPMailer\PHPMailer; 
+        use PHPMailer\PHPMailer\SMTP; 
+        use PHPMailer\PHPMailer\Exception; 
+        require '../vendor/autoload.php'; 
+
         if(isset($_POST["login"])){
             $email = $_POST["email"]; 
             $password = $_POST["password"]; 
@@ -105,19 +105,46 @@ if(isset($_SESSION["user"])){
                 $row = mysqli_fetch_assoc($result); 
                 if(password_verify($password, $row["password"])){
                     session_start();
-                    $_SESSION["user"] = "yes"; 
+                    $firstName = $row["first_name"]; 
+                    // $_SESSION["user"] = "yes"; 
+                    $_SESSION["username"] = $row["email"]; 
                     $_SESSION["userID"] = $row["ID"]; 
-                    header("Location: index.php");
-                    echo "<div class='alert alert-success'>Login Successful!</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Incorrect Login!</div>";
+                    // $_SESSION["firstName"] = $row["firstName"]; 
+                    // $_SESSION["lastName"] = $row["lastName"]; 
+                    $mail = new PHPMailer(true); 
+                    try{
+                        $mail->SMTPDebug = 0; 
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com'; 
+                        $mail->SMTPAuth = true; 
+                        $mail->Username = 'bankmusa6@gmail.com'; 
+                        $mail->Password = 'pmbwfjyjrcrkjnfm'; 
+                        $mail->SMTPSecure = "tls"; 
+                        $mail->Port = 587; 
+                        $mail->setFrom('bankmusa6@gmail.com', 'Bank of Musa', 0); 
+                        $mail->addAddress($email, $firstName); 
+                        $mail->isHTML(true); 
+                        $code = random_int(10000,999999); 
+                        require_once 'database.php'; 
+                        $sql = "UPDATE user_info SET authenticate = '$code' WHERE email = '$email'";
+                        mysqli_query($connection, $sql); 
+                        $mail->Subject = 'User Authentication';
+                        $mail->Body = '<p> Your verification code is: <b style = "font-size: 30px;">' . $code . '</b></p>'; 
+                        echo "here";
+                        $mail->send(); 
+                        echo "sent"; 
+                    }catch(Exception $e){
+                        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    }  
+                      
                 }
             } else {
-                echo "User not found."; 
+                echo "<div class='alert alert-danger'>Incorrect Login!</div>";
+                // echo "User not found."; 
             }
             mysqli_close($connection); 
         }
-        ?>
+    ?>
         <form action="login.php" method="post">
             <div class="form-group">
                 <input type="email" placeholder="Enter Email:" name="email" class="form-control">

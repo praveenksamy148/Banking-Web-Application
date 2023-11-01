@@ -9,7 +9,7 @@ if(!isset($_SESSION["user"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Registration</title>
+    <title>Banking Account Creation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -97,15 +97,16 @@ if(!isset($_SESSION["user"])){
         <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
     </div> -->
     <div class="container">
-    <h1 style= "color:white; text-align: center"><b>Register</b></h1>
+    <h1 style= "color:white; text-align: center"><b>Account Creation</b></h1>
         <form action="NewAccConfirm.php" method="post">
             <?php
             if(isset($_POST["submit"])){
                 $accType = $_POST["accType"]; 
                 $money = $_POST["money"]; 
                 $accID = $_SESSION["userID"];
+                $uniqueID = rand(11111111111, 99999999999);
                 require_once "database.php"; 
-                $sql = "INSERT INTO account_info (accID, money, accType) VALUES ('$accID','$money', '$accType')";
+                $sql = "INSERT INTO account_info (accID, money, accType, uniqueID) VALUES ('$accID','$money', '$accType', '$uniqueID')";
                 $results = mysqli_query($connection, $sql); 
 
                   if($results){
@@ -117,11 +118,16 @@ if(!isset($_SESSION["user"])){
                   }
               }
              ?>
-            <div class = "form-group">
-                <input type = "text" name = "accType" placeholder = "Account Type: ">
+            <div class="form-group">
+              <select name="accType">
+                  <option value = "TAccount">Account Type</option>
+                  <option value="Savings">Savings</option>
+                  <option value="Checkings">Checkings</option>
+              </select>
             </div>
+            
             <div class = "form-group">
-                <input type = "number" name = "money" placeholder = "Money: ">
+                <input type = "number" name = "money" placeholder = "Initial Deposit: ">
             </div>
             <div class = "form-group">
                 <input type = "submit" value = "Enter" name = "submit" >

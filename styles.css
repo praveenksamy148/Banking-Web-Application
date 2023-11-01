@@ -1,0 +1,188 @@
+@media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+header {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(80, 23, 23); 
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    margin-bottom: 15px;
+}
+
+body {
+    margin-top: 75px;
+    display: block;
+    align-items: center;
+
+}
+
+.account-options {
+    text-align: left;
+    margin-left: 15px;
+    display: inline-block;
+}
+
+
+
+.first-account-container {
+    background-color: #AEAEAE;
+    width: 75%;
+    margin: 0 12.5%;
+    margin-bottom: 100px;
+    border-radius: 20px;
+    margin-top: 150px;
+    text-align: left;
+    box-shadow: rgba(80, 23, 23, 0.4) 5px 5px, rgba(80, 23, 23, 0.35) 7.5px 7.5px, rgba(80, 23, 23, 0.3) 10px 10px, rgba(80, 23, 23, 0.25) 12.5px 12.5px, rgba(80, 23, 23, 0.2) 15px 15px, rgba(80, 23, 23, 0.15) 17.5px 17.5px, rgba(80, 23, 23, 0.1) 20px 20px, rgba(80, 23, 23, 0.05) 25px 25px;
+}
+
+.account-container {
+    background-color: #AEAEAE;
+    width: 75%;
+    margin: 0 12.5%;
+    margin-bottom: 100px;
+    border-radius: 20px;
+    box-shadow: rgba(80, 23, 23, 0.4) 5px 5px, rgba(80, 23, 23, 0.35) 7.5px 7.5px, rgba(80, 23, 23, 0.3) 10px 10px, rgba(80, 23, 23, 0.25) 12.5px 12.5px, rgba(80, 23, 23, 0.2) 15px 15px, rgba(80, 23, 23, 0.15) 17.5px 17.5px, rgba(80, 23, 23, 0.1) 20px 20px, rgba(80, 23, 23, 0.05) 25px 25px;
+}
+
+.first-account-container > h1 {
+    padding-left: 15px; 
+    padding-bottom: 1px;
+    display: inline-block;
+    max-width: 35vw;
+    width: 35vw;
+
+}
+
+.account-container > h1 {
+    padding-left: 15px;
+    padding-bottom: 1px;
+    display: inline-block;
+    max-width: 35vw;
+    width: 35vw;
+}
+
+.first-account-container > h2, h3 {
+    display: inline-block;
+    max-width: 20vw;
+    margin-left: 5vw;
+}
+
+.account-container > h2, h3 {
+    display:inline-block;
+    max-width: 20vw;
+    margin-left: 5vw;
+}
+
+.account-container > h1 {
+    padding-left: 15px; 
+    padding-bottom: 15px;
+}
+.account-container-top {
+    background-color: rgb(80, 23, 23);
+    color: rgb(80, 23, 23);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    width: 100%;
+    
+}
+
+.navbar {
+    display: flex;
+    padding: 1rem;
+    color: white;
+
+}
+
+.right {
+    display: flex;
+    margin-left: 29vw;
+    justify-content: flex-end;
+}
+
+#logo {
+    width: max(75px, 18vw);
+    aspect-ratio: 1/1.15;
+    padding: 0.4rem;
+  }
+
+.navbar > a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.navbar > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.account-options > a {
+    color: #4b4b4b;
+    text-decoration: none;
+}
+
+.account-options > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+.centerBox {
+    margin: 15px;
+    margin-top: 110px;
+    padding: 15px;
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    border-radius: 15px;
+    overflow: hidden;
+    background-image: url("homeBackground.png");
+    background-color: rgba(255,255,255,.8);
+    background-blend-mode: lighten;
+    border: 2px solid black;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.centerBoxLeft {
+    padding-bottom: 8%;
+    padding-top: 8%;
+    padding-left: 3%;
+    text-align: center;
+    color: rgb(20, 20, 20);
+    font-family: "Montserrat", sans-serif;
+    font-size: xx-large;
+}
+
+.centerBoxRight {
+    text-align: center;
+    padding-right: 3%;
+    color: rgb(20, 20, 20);
+    font-family: "Montserrat", sans-serif;
+    font-size: xx-large;
+}
+
+.centerBoxRight a {
+    text-decoration: none;
+    color: rgb(255, 109, 56);
+    text-align: right;
+    margin-right: 15px;
+}
+
+.centerBox a:visited {
+    color:currentColor;
+}
+
+.centerBox a:hover {
+    color:red;
+}
