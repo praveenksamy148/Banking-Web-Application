@@ -90,6 +90,7 @@
         use PHPMailer\PHPMailer\PHPMailer; 
         use PHPMailer\PHPMailer\SMTP; 
         use PHPMailer\PHPMailer\Exception; 
+        //comment out 
         require '../vendor/autoload.php'; 
 
         if(isset($_POST["login"])){
@@ -110,6 +111,8 @@
                     $_SESSION["username"] = $row["email"]; 
                     $_SESSION["userID"] = $row["ID"]; 
                     $mail = new PHPMailer(true); 
+
+                    // comment try-catch statement out to avoid 2-factor authentication
                     try{
                         $mail->SMTPDebug = 0; 
                         $mail->isSMTP();
@@ -133,7 +136,7 @@
                     }catch(Exception $e){
                         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                     }  
-                      
+                  
                 }
             } else {
                 echo "<div class='alert alert-danger'>Incorrect Login!</div>";
