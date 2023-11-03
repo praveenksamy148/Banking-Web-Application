@@ -72,6 +72,7 @@ if(!isset($_SESSION["authenticate"])){
                     {
                         echo "There are no accounts associated with this user ID.";
                     }
+                    mysqli_close($connection);
                     ?>
                 </select>
                 <br></br>
