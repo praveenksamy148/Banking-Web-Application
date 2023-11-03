@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-if(!isset($_SESSION["user"])){
+if(!isset($_SESSION["authenticate"])){
     header("location: login.php");
 }
 ?>
@@ -97,6 +97,10 @@ if(!isset($_SESSION["user"])){
         <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
     </div> -->
     <div class="container">
+    <div class="header">
+        <h1 class="name">Welcome to Bank!</h1>
+        <h3>Please follow the steps below to create a new account:</h3>
+    </div>
     <h1 style= "color:white; text-align: center"><b>Account Creation</b></h1>
         <form action="NewAccConfirm.php" method="post">
             <?php
@@ -104,13 +108,37 @@ if(!isset($_SESSION["user"])){
                 $accType = $_POST["accType"]; 
                 $money = $_POST["money"]; 
                 $accID = $_SESSION["userID"];
-                $uniqueID = rand(11111111111, 99999999999);
+                $check = false;
+                $errorcount = 0;
+                while (!$check) 
+                {
+                    $possibleID = rand(111111111, 999999999);
+                    require_once "database.php"; 
+                    $sql = "SELECT accID FROM account_info WHERE accID = $possibleID";
+                    $accIDCheck = mysqli_query($connection, $sql);
+                    $test = mysqli_num_rows($accIDCheck);
+                    
+                    if (mysqli_num_rows($accIDCheck) == 0) 
+                    {
+                        $uniqueID = $possibleID;
+                        $check = true;
+                    } 
+                    else 
+                    {
+                        $errorcount++;
+                        if($errorcount > 100);
+                        {
+                            echo "ERROR: UNABLE TO CREATE UNIQUE ID";
+                            exit;
+                        }
+                    }
+                }
                 require_once "database.php"; 
                 $sql = "INSERT INTO account_info (accID, money, accType, uniqueID) VALUES ('$accID','$money', '$accType', '$uniqueID')";
                 $results = mysqli_query($connection, $sql); 
 
                   if($results){
-                      header("Location: login.php");
+                      header("Location: accountpage.php");
 
                   }else{
                       echo "<div class= 'alert alert-danger'>Unable to Register</div>";

@@ -110,6 +110,8 @@ if(!isset($_SESSION["user"])){
                         unset($_SESSION["user"]);
                         $_SESSION["firstName"] = $row["first_name"]; 
                         $_SESSION["lastName"] = $row["last_name"]; 
+                        $_SESSION["start"] = time(); 
+                        $_SESSION["expire"] = $_SESSION['start'] + (30 * 60); 
                         header("Location: accountpage.php"); 
                     }
                 }
