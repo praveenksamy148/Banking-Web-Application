@@ -63,7 +63,8 @@ if(!isset($_SESSION["authenticate"])){
 
                     if($result){
                         while($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['uniqueID'] . "'>" . $row['uniqueID'] . "</option>";
+                            $temp = $row['uniqueID'];
+                            echo "<option value='$temp'>'$temp'</option>";
                         }
                     }
 
