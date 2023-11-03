@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<?php 
+session_start(); 
+if(isset($_SESSION["authenticate"])){
+    header("location: login.php");
+}
+?>
+
+!DOCTYPE html>
 
     <!-- Title -->
     <head>
@@ -46,10 +53,21 @@
             ?>
             <form action = "accountDeletion.php" method = "post">
                 <p>Which account would you like to delete?</p>
-                <?php 
+                <?php
                     require_once "database.php";
-                    $currentUserID = $_SESSION["userID"]; 
+                    
+                    $currentUserID = $_SESSION["userID"];
                     echo "'$currentUserID'";
+                    $query = "SELECT * FROM account_info WHERE userID = '$currentUserID'";
+                    $result = mysqli_query($connection, $query);
+
+                    if($result){
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo "<p>" . $row['uniqueID'] . "</p>";
+                        }
+                    }
+
+                    mysqli_close($connection);
                 ?>
                 <select name = "dropdown">
                     <?php
