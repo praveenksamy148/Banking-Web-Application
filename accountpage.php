@@ -17,6 +17,10 @@ if(!isset($_SESSION["authenticate"])){
     }
     
     $numOfAccounts = 0; 
+    // 
+    $sql = "SELECT accID FROM account_info WHERE userID = $userID";             $result = $connection->query($sql);
+
+
     $sql = "SELECT balance, account_id, account_type FROM acc_info";
     $result = mysqli_query($conn, $sql); 
     
@@ -28,14 +32,16 @@ if(!isset($_SESSION["authenticate"])){
 
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)){
-            $accountInfoMatrix["accountId"][] = $row["account_id"];
-            $accountInfoMatrix["balance"][] = $row["balance"];
-            if ($row["account_type"] == 1) {
-                $accountInfoMatrix["accountType"][] = "Checking";
-            } else {
-                $accountInfoMatrix["accountType"][] = "Savings";
+            if ($_SESSION["userID"] == $row["accID"] ) {
+                $accountInfoMatrix["accountId"][] = $row["account_id"];
+                $accountInfoMatrix["balance"][] = $row["balance"];
+                if ($row["account_type"] == 1) {
+                    $accountInfoMatrix["accountType"][] = "Checking";
+                } else {
+                    $accountInfoMatrix["accountType"][] = "Savings";
+                }
+                $numOfAccounts++;
             }
-            $numOfAccounts++;
         }
     }
 
