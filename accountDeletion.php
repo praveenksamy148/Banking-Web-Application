@@ -52,23 +52,26 @@ if(!isset($_SESSION["authenticate"])){
             }
             ?>
             <form action = "accountDeletion.php" method = "post">
+                <?php
+                $userID = $_SESSION["userID"];
+                require_once "database.php";
+                $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
+                $result = $connection->query($sql);
+                ?>
                 <p>Which account would you like to delete?</p>
                 <select name = "dropdown">
                     <?php
-                    require_once "database.php";
-                    
-                    $currentUserID = $_SESSION["userID"];
-                    $query = "SELECT uniqueID FROM account_info WHERE userID = '$currentUserID'";
-                    $result = mysqli_query($connection, $query);
-
-                    if($result){
-                        while($row = mysqli_fetch_assoc($result)) {
-                            $temp = $row['uniqueID'];
-                            echo "<option value='$temp'>'$temp'</option>";
+                    if ($result->num_rows > 0) 
+                    {
+                        while ($row = $result->fetch_assoc()) {
+                            $accountId = $row["uniqueID"];
+                            echo "<option value='$accountId'>$accountId</option>";
                         }
                     }
-
-                    mysqli_close($connection);
+                    else
+                    {
+                        echo "There are no accounts associated with this user ID.";
+                    }
                     ?>
                 </select>
                 <br></br>
