@@ -15,13 +15,8 @@ if(!isset($_SESSION["authenticate"])){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    
-    $numOfAccounts = 0; 
-    // 
-    $sql = "SELECT accID FROM account_info WHERE userID = $userID";             $result = $connection->query($sql);
-
-
-    $sql = "SELECT balance, account_id, account_type FROM acc_info";
+     
+    $sql = "SELECT balance, account_id, account_type, ID FROM acc_info";
     $result = mysqli_query($conn, $sql); 
     
     $accountInfoMatrix = array (
@@ -30,9 +25,20 @@ if(!isset($_SESSION["authenticate"])){
         "accountType" => array()
     );
 
+    $numOfAccounts = 0;
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            if ($_SESSION["userID"] == $row["ID"]) {
+                $numOfAccounts++;
+            } else {
+                continue;
+            }
+        }
+    }
+
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)){
-            if ($_SESSION["userID"] == $row["accID"] ) {
+            if ($_SESSION["userID"] == $row["ID"] ) {
                 $accountInfoMatrix["accountId"][] = $row["account_id"];
                 $accountInfoMatrix["balance"][] = $row["balance"];
                 if ($row["account_type"] == 1) {
@@ -40,8 +46,8 @@ if(!isset($_SESSION["authenticate"])){
                 } else {
                     $accountInfoMatrix["accountType"][] = "Savings";
                 }
-                $numOfAccounts++;
-            }
+
+            } 
         }
     }
 
