@@ -46,6 +46,11 @@
             ?>
             <form action = "accountDeletion.php" method = "post">
                 <p>Which account would you like to delete?</p>
+                <?php 
+                    require_once "database.php";
+                    $currentUserID = $_SESSION["userID"]; 
+                    echo "'$currentUserID'";
+                ?>
                 <select name = "dropdown">
                     <?php
                     require_once "database.php";
