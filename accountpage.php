@@ -17,25 +17,20 @@ if(!isset($_SESSION["authenticate"])){
     }
     
     $numOfAccounts = 0; 
-    $sql = "SELECT money, accID, accType FROM account_info";
+    $sql = "SELECT * FROM acc_info";
     $result = mysqli_query($conn, $sql); 
+
+    // $accountInfoMatrix = array (
+    //     $accountIdArray => array();
+
+
+    // )
     
-    $accountInfoMatrix = array (
-        "accID" => array(),
-        "money" => array(),
-        "accType" => array()
-    );
+    $accountIdArray = array();
 
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)){
-            $accountInfoMatrix["accID"][] = $row["accID"];
-            $accountInfoMatrix["money"][] = $row["money"];
-            if ($row["accType"] == 1) {
-                $accountInfoMatrix["accType"][] = "Checking";
-            } else {
-                $accountInfoMatrix["accType"][] = "Savings";
-            }
-            $numOfAccounts++;
+            $accountIdArray[] = $row["account_id"];
         }
     }
 
@@ -69,9 +64,9 @@ if(!isset($_SESSION["authenticate"])){
             <div class="account-container-top">
                 <h1>Ignore this.</h1>
             </div>
-            <h1><?php echo $accountInfoMatrix["accType"][0]?> ...<?php echo $accountInfoMatrix["accID"][0] ?></h1>
+            <h1>Checking ...3151</h1>
             <h3>Available balance</h3>
-            <h2>$<?php echo $accountInfoMatrix["money"][0]?></h2>
+            <h2>$20,000.00</h2>
             <div class="account-options-container">
                 <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
                 <p class="account-options"><a href='carddetails.html'>My Card</a></p>
@@ -80,33 +75,35 @@ if(!isset($_SESSION["authenticate"])){
                 <p class="account-options"><a href='deposits.html'>Deposit</a></p>
             </div>
         </div>
-        <?php
-            // Class attributes constants 
-            $accountContainerClass = "account-container";
-            $accountContainerTopClass = "account-container-top";
-            $accountOptionsContainerClass = "account-options-container";
-            $accountOptionsClass = "account-options";
-
-            for ($i = 1; $i < $numOfAccounts; $i++) {
-                echo "<div class=\"$accountContainerClass\">
-                    <div class=\"$accountContainerTopClass\">
-                        <h1>Ignore this.</h1>
-                    </div>
-                    <h1>" . $accountInfoMatrix["accType"][$i] . " ..." . $accountInfoMatrix["accID"][$i] . "</h1>
-                    <h3>Available balance</h3>
-                    <h2>$" . $accountInfoMatrix["money"][$i] . "</h2>
-                    <div class=\"$accountOptionsContainerClass\">
-                        <p class=\"$accountOptionsClass\"><a href='accountdetails.html'>Account Details</a></p>
-                        <p class=\"$accountOptionsClass\"><a href='carddetails.html'>My Card</a></p>
-                        <p class=\"$accountOptionsClass\"><a href='bills.html'>Pay Bills</a></p>
-                        <p class=\"$accountOptionsClass\"><a href='transfers.html'>Transfer</a></p>
-                        <p class=\"$accountOptionsClass\"><a href='deposits.html'>Deposit</a></p>
-                    </div>
-                </div>";
-
-
-            }
-
-        ?>
+        <div class="account-container">
+            <div class="account-container-top">
+                <h1>Ignore this.</h1>
+            </div>
+            <h1>Savings ...3011</h1>
+            <h3>Available balance</h3>
+            <h2>$1,245,028.04</h2>
+            <div class="account-options-container">
+                <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
+                <p class="account-options"><a href='carddetails.html'>My Card</a></p>
+                <p class="account-options"><a href='bills.html'>Pay Bills</a></p>
+                <p class="account-options"><a href='transfers.html'>Transfer</a></p>
+                <p class="account-options"><a href='deposits.html'>Deposit</a></p>
+            </div>
+        </div>
+        <div class="account-container">
+            <div class="account-container-top">
+                <h1>Ignore this.</h1>
+            </div>
+            <h1>Savings ...2987</h1>
+            <h3>Available balance</h3>
+            <h2>$134.46</h2>
+            <div class="account-options-container">
+                <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
+                <p class="account-options"><a href='carddetails.html'>My Card</a></p>
+                <p class="account-options"><a href='bills.html'>Pay Bills</a></p>
+                <p class="account-options"><a href='transfers.html'>Transfer</a></p>
+                <p class="account-options"><a href='deposits.html'>Deposit</a></p>
+            </div>
+        </div>
     </body>
 </html>
