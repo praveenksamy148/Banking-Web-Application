@@ -4,6 +4,7 @@ if(!isset($_SESSION["user"])){
     header("location: login.php");
 }else{
     $email = $_SESSION["username"];
+    $_SESSION['last_login_timestamp'] = time(); 
 }
 
 ?>
@@ -93,6 +94,7 @@ if(!isset($_SESSION["user"])){
         </style>
     </head>
     <body>
+        <div class = "container">
         <?php
             if(isset($_POST["submit"])){
                 $authenticate = $_POST["authenticate"]; 
@@ -125,6 +127,8 @@ if(!isset($_SESSION["user"])){
                 <input type="submit" value="Submit" name="submit" class="btn btn-primary">
             </div>
         </form>
+        </div>
+       
     </body>
 
     

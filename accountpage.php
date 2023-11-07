@@ -2,6 +2,13 @@
 session_start(); 
 if(!isset($_SESSION["authenticate"])){
     header("location: login.php");
+}else{
+    if((time() - $_SESSION['last_login_timestamp']) > 900){
+        header('Location: login.php'); 
+    }else{
+        $_SESSION['last_login_timestamp'] = time(); 
+    }
+    
 }
 
 ?>
@@ -16,28 +23,38 @@ if(!isset($_SESSION["authenticate"])){
         die("Connection failed: " . $conn->connect_error);
     }
     
-    $numOfAccounts = 0; 
-    $sql = "SELECT money, accID, accType FROM account_info";
+    $sql = "SELECT money, accID, accType, uniqueID FROM account_info";
     $result = mysqli_query($conn, $sql); 
     
     $accountInfoMatrix = array (
         "accID" => array(),
         "money" => array(),
-        "accType" => array()
-    );
+        "accType" => array(),
+        "userID" => array()
+    ); 
 
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)){
-            $accountInfoMatrix["accID"][] = $row["accID"];
-            $accountInfoMatrix["money"][] = $row["money"];
-            if ($row["accType"] == 1) {
-                $accountInfoMatrix["accType"][] = "Checking";
-            } else {
-                $accountInfoMatrix["accType"][] = "Savings";
+            if($_SESSION["userID"] == $row["accID"]){
+                $accountInfoMatrix["accID"][] = $row["uniqueID"];
+                $accountInfoMatrix["money"][] = $row["money"];
+                $accountInfoMatrix["userID"][] = $row["accID"];
+                if ($row["accType"] == 1) {
+                    $accountInfoMatrix["accType"][] = "Checking";
+                } else {
+                    $accountInfoMatrix["accType"][] = "Savings";
+                }
             }
+        }
+    }
+    $numOfAccounts = 0; 
+    for ($i = 0; $i < count($accountInfoMatrix["userID"]); $i++) {
+        if ($_SESSION["userID"] == $accountInfoMatrix["userID"][$i]) {
             $numOfAccounts++;
         }
     }
+    
+
 
 ?>
 
@@ -56,11 +73,12 @@ if(!isset($_SESSION["authenticate"])){
     <header>
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
-        <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
         <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
         <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
         
     </header>
     <body>
@@ -74,7 +92,7 @@ if(!isset($_SESSION["authenticate"])){
             <h2>$<?php echo $accountInfoMatrix["money"][0]?></h2>
             <div class="account-options-container">
                 <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
-                <p class="account-options"><a href='carddetails.html'>My Card</a></p>
+                <p class="account-options"><a href='carddetails.html'>Delete Account</a></p>
                 <p class="account-options"><a href='bills.html'>Pay Bills</a></p>
                 <p class="account-options"><a href='transfers.html'>Transfer</a></p>
                 <p class="account-options"><a href='deposits.html'>Deposit</a></p>

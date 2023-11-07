@@ -17,12 +17,13 @@ if(!isset($_SESSION["authenticate"])){
     <header>
         <img src = "logo.png" alt="Bank of Musa" width = 300 height = 50>
         <div class="topRight">
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
+        <a href='MusaHome.html'>Home</a>
+        <a href='withdraw.php'>Withdraw Funds</a>    
+        <a href='deposits.html'>Make a Deposit</a>    
+        <a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a>
+        <a href='logout.php'>Log Out</a>
+        <a href = "NewAccConfirm.php">Create Account</a>
+        <a href = "accountDeletion.php">Delete Account</a>
         </div>
     </header>
 
