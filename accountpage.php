@@ -84,6 +84,25 @@ if(!isset($_SESSION["authenticate"])){
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class = "navbar">
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
+
+        </script>
+        <h3>Live Session   </h2>
+        <h4 id = "time"> &nbsp Minutes:
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds:
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h4>
+        </div>
 
     </header>
     <body>
@@ -131,21 +150,6 @@ if(!isset($_SESSION["authenticate"])){
             }
 
         ?>
-        <script>
-            var countdown = <?php echo json_encode($remaining_time);?>; 
-            var minutes = Math.floor(countdown / 60); 
-            var seconds = countdown % 60; 
-            document.getElementById('time').textContent = countdown; 
-
-        </script>
-        <h2 id = "time">Minutes: 
-            <script type="text/javascript">
-            document.write(minutes)
-            </script>
-            Seconds: 
-            <script type="text/javascript">
-            document.write(seconds)
-            </script>
-      </h2>
+        
     </body>
 </html>
