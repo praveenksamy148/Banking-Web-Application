@@ -2,11 +2,17 @@
 session_start(); 
 if(!isset($_SESSION["authenticate"])){
     header("location: login.php");
+    exit(); 
 }else{
-    if((time() - $_SESSION['last_login_timestamp']) > 900){
+    $timeout_duration = 900; 
+    $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+    if($time_lastLogin > $timeout_duration){
         header('Location: login.php'); 
+        exit(); 
     }else{
+        $remaining_time = $timeout_duration - $time_lastLogin; 
         $_SESSION['last_login_timestamp'] = time(); 
+        
     }
     
 }
@@ -14,7 +20,6 @@ if(!isset($_SESSION["authenticate"])){
 ?>
 <!DOCTYPE html>
 <?php
-    
     // Create a connection
     $conn = mysqli_connect("localhost", "root", "", "bank users");
     
@@ -79,7 +84,7 @@ if(!isset($_SESSION["authenticate"])){
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
-        
+
     </header>
     <body>
         <!-- <h1>Welcome Back <?php echo $_SESSION["firstName"]?><h1> -->
@@ -89,7 +94,7 @@ if(!isset($_SESSION["authenticate"])){
             </div>
             <h1><?php echo $accountInfoMatrix["accType"][0]?> ...<?php echo $accountInfoMatrix["accID"][0] ?></h1>
             <h3>Available balance</h3>
-            <h2>$<?php echo $accountInfoMatrix["money"][0]?></h2>
+            <h2><?php echo $accountInfoMatrix["money"][0]?></h2>
             <div class="account-options-container">
                 <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
                 <p class="account-options"><a href='carddetails.html'>Delete Account</a></p>
@@ -126,5 +131,21 @@ if(!isset($_SESSION["authenticate"])){
             }
 
         ?>
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
+
+        </script>
+        <h2 id = "time">Minutes: 
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds: 
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h2>
     </body>
 </html>
