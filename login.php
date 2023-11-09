@@ -91,7 +91,17 @@ if(isset($_SESSION["user"])){
 <body>
     <div class="container">
         <h1 style= "color:white"><b>User Login</b></h1>
+<<<<<<< Updated upstream
         <?php 
+=======
+    <?php 
+        use PHPMailer\PHPMailer\PHPMailer; 
+        use PHPMailer\PHPMailer\SMTP; 
+        use PHPMailer\PHPMailer\Exception; 
+        //comment out 
+        require 'C:\xampp\htdocs\phpmailer\vendor\autoload.php'; 
+
+>>>>>>> Stashed changes
         if(isset($_POST["login"])){
             $email = $_POST["email"]; 
             $password = $_POST["password"]; 
