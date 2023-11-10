@@ -1,0 +1,75 @@
+body {
+    background-color: maroon;
+    color: gold;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+.container {
+    background-color: maroon;
+    border: 1px solid gold;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    background-color: gold;
+    color: maroon;
+    border: 1px solid maroon;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-primary {
+    background-color: gold;
+    color: maroon;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+}
+
+.btn-primary:hover {
+    background-color: #d4af37;
+}
+
+.alert {
+    background-color: gold;
+    color: maroon;
+    border: 1px solid maroon;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.logo {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+#buttonSize {
+    background-color: gold;
+    color: maroon;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+}
+
+#buttonSize:hover {
+    background-color: #d4af37;
+}
+img{
+    height: 200px;
+    width: 400px;
+}

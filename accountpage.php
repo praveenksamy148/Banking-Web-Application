@@ -9,7 +9,7 @@ if(!isset($_SESSION["authenticate"])){
 <?php
     
     // Create a connection
-    $conn = mysqli_connect("localhost", "root", "", "bank users");
+    $conn = mysqli_connect("localhost", "root", "", "bank_users");
     
     // Check the connection
     if ($conn->connect_error) {
@@ -57,8 +57,8 @@ if(!isset($_SESSION["authenticate"])){
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='checkdeposit.php'>Check Deposit</a></div>      
+        <div class="navbar"><a href='accountdeletion.php' style='flex-grow: 1;'>Delete Account</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         
