@@ -13,7 +13,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgb(80, 23, 23); 
+    background-color: maroon; 
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
     margin-bottom: 15px;
 }
@@ -22,6 +22,7 @@ body {
     margin-top: 75px;
     display: block;
     align-items: center;
+    background-color: gold;
 
 }
 
@@ -87,8 +88,8 @@ body {
     padding-bottom: 15px;
 }
 .account-container-top {
-    background-color: rgb(80, 23, 23);
-    color: rgb(80, 23, 23);
+    background-color: maroon;
+    color: maroon;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     width: 100%;

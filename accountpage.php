@@ -15,32 +15,25 @@ if(!isset($_SESSION["authenticate"])){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-     
-    $sql = "SELECT balance, account_id, account_type, ID FROM acc_info";
+    
+    // double check your column/table names here 
+    $sql = "SELECT balance, account_id, account_type, uniqueID FROM acc_info";
     $result = mysqli_query($conn, $sql); 
     
     $accountInfoMatrix = array (
         "accountId" => array(),
         "balance" => array(),
-        "accountType" => array()
+        "accountType" => array(),
+        "userID" => array()
     );
-
-    $numOfAccounts = 0;
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($_SESSION["userID"] == $row["ID"]) {
-                $numOfAccounts++;
-            } else {
-                continue;
-            }
-        }
-    }
 
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)){
-            if ($_SESSION["userID"] == $row["ID"] ) {
+            // double check your column/table names here 
+            if ($_SESSION["userID"] == $row["uniqueID"] ) {
                 $accountInfoMatrix["accountId"][] = $row["account_id"];
                 $accountInfoMatrix["balance"][] = $row["balance"];
+                $accountInfoMatrix["userID"][] = $row["uniqueID"];
                 if ($row["account_type"] == 1) {
                     $accountInfoMatrix["accountType"][] = "Checking";
                 } else {
@@ -50,6 +43,13 @@ if(!isset($_SESSION["authenticate"])){
             } 
         }
     }
+    $numOfAccounts = 0;
+    for ($i = 0; $i < count($accountInfoMatrix["userID"]); $i++) {
+        if ($_SESSION["userID"] == $accountInfoMatrix["userID"][$i] ) {
+            $numOfAccounts++;
+        }
+    }
+
 
 ?>
 
@@ -66,7 +66,7 @@ if(!isset($_SESSION["authenticate"])){
    <!--Alt shadows for the accounts box-shadow: rgba(80, 23, 23, 0.4) 5px 5px, rgba(80, 23, 23, 0.3) 10px 10px, rgba(80, 23, 23, 0.2) 15px 15px, rgba(80, 23, 23, 0.1) 20px 20px, rgba(80, 23, 23, 0.05) 25px 25px;-->
    
     <header>
-        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <a href="MusaHome.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
         <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
