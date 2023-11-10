@@ -81,6 +81,10 @@
         #buttonSize:hover {
             background-color: #d4af37;
         }
+
+        #spacingBottom{
+            margin-bottom: 3cm; 
+        }
     </style>
 </head>
 <body>
@@ -90,7 +94,7 @@
         use PHPMailer\PHPMailer\PHPMailer; 
         use PHPMailer\PHPMailer\SMTP; 
         use PHPMailer\PHPMailer\Exception; 
-        //comment out 
+
         require '../vendor/autoload.php'; 
 
         if(isset($_POST["login"])){
@@ -157,8 +161,9 @@
             </div>
         </form>
         <div>
-            <p>Haven't registered yet?</p><button onclick = "window.location.href = 'registration.php'" id = "buttonSize">Register Here</button>
+            <p class="spacingBottom">Haven't registered yet?</p><button onclick = "window.location.href = 'registration.php'" id = "buttonSize">Register Here</button>
         </div>
+        <a href= "forgotPassword.php">Forgot Password?</a>
     </div>
 </body>
 </html>
