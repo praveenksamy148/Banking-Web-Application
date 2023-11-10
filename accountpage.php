@@ -21,7 +21,7 @@ if(!isset($_SESSION["authenticate"])){
 <!DOCTYPE html>
 <?php
     // Create a connection
-    $conn = mysqli_connect("localhost", "root", "", "bank users");
+    $conn = mysqli_connect("localhost", "root", "", "bank_users");
     
     // Check the connection
     if ($conn->connect_error) {
