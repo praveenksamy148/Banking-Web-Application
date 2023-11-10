@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 session_start(); 
 if(!isset($_SESSION["user"])){
     header("location: login.php");
@@ -21,6 +21,7 @@ if(!isset($_SESSION["user"])){
     <h1>User Dashboard</h1>
     <a href = "logout.php" class = "btn btn-warning">Logout</a>
     </div>
-    
+    <button onclick="window.location.href = 'NewAccConfirm.php'" id="buttonSize">Make Account Here</button>
+
 </body>
-</html>
+</html> -->

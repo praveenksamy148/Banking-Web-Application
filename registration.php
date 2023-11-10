@@ -81,8 +81,8 @@
             background-color: #d4af37;
         }
         img{
-            height: 200px;
-            width: 400px;
+            height: 200px; 
+            width: 400px; 
         }
     </style>
 </head>
@@ -104,15 +104,15 @@
                 $ssn = $_POST["ssn"];
                 $password = $_POST["password"];
                 $repeatPassword = $_POST["repeatPassword"];
-
-                //encrypt password
-                $hash_password = password_hash($password, PASSWORD_BCRYPT);
+                
+                //encrypt password 
+                $hash_password = password_hash($password, PASSWORD_BCRYPT); 
                 // echo $hash_password;
 
-                $errors = array();
+                $errors = array(); 
                 if(empty($firstName) OR empty($lastName) OR empty($email)OR empty($dateOfBirth)OR empty($address)OR empty($zipcode)OR empty($ssn)OR empty($password)OR empty($repeatPassword)){
                     array_push($errors, "Required to fill out all fields!");
-                }
+                } 
                 if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                     array_push($errors, "Email not valid");
                 }
@@ -122,11 +122,11 @@
                 if($password != $repeatPassword){
                     array_push($errors, "Passwords entered don't match!");
                 }
-                require_once "database.php";
-                $dupEmail = "SELECT * FROM user_info WHERE email = '$email'";
-                $copied = mysqli_query($connection, $dupEmail);
+                require_once "database.php"; 
+                $dupEmail = "SELECT * FROM user_info WHERE email = '$email'"; 
+                $copied = mysqli_query($connection, $dupEmail); 
                 if(!$copied || mysqli_num_rows($copied) > 0){
-                    array_push($errors, "Username already exists");
+                    array_push($errors, "Username already exists"); 
                 }
                 if(count($errors) > 0){
                     foreach($errors as $error){
@@ -134,13 +134,13 @@
                     }
                 }else{
                     $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$hash_password')";
-                    $results = mysqli_query($connection, $sql);
+                    $results = mysqli_query($connection, $sql); 
                     if($results){
                         header("Location: login.php");
 
                     }else{
                         echo "<div class= 'alert alert-danger'>Unable to Register</div>";
-                        echo mysqli_error($connection);
+                        echo mysqli_error($connection); 
                     }
                 }
             }
@@ -178,7 +178,7 @@
         </form>
         <div>
             <p>Already have an account?</p>
-
+            
         </div>
         <button onclick="window.location.href = 'login.php'" id="buttonSize">Login Here</button>
     </div>
