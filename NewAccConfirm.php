@@ -1,9 +1,23 @@
 <?php 
-session_start(); 
-if(!isset($_SESSION["authenticate"])){
-    header("location: login.php");
-}
+    session_start(); 
+    if(!isset($_SESSION["authenticate"])){
+        header("location: login.php");
+        exit(); 
+    }else{
+        $timeout_duration = 900; 
+        $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+        if($time_lastLogin > $timeout_duration){
+            header('Location: login.php'); 
+            exit(); 
+        }else{
+            $remaining_time = $timeout_duration - $time_lastLogin; 
+            $_SESSION['last_login_timestamp'] = time(); 
+            
+        }
+        
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,95 +27,47 @@ if(!isset($_SESSION["authenticate"])){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        /* Custom CSS for a maroon and gold theme with improved fonts */
-        body {
-            background-color: maroon;
-            color: gold;
-            font-family: 'Open Sans', sans-serif;
-            text-align: center;
-        }
-
-        .container {
-            background-color: maroon;
-            border: 1px solid gold;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            background-color: gold;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .btn-primary {
-            background-color: gold;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .btn-primary:hover {
-            background-color: #d4af37;
-        }
-
-        .alert {
-            background-color: gold;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            margin: 10px 0;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .logo {
-            max-width: 150px;
-            display: block;
-            margin: 0 auto 20px;
-        }
-
-        #buttonSize {
-            background-color: gold;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        #buttonSize:hover {
-            background-color: #d4af37;
-        }
-        img{
-            height: 200px; 
-            width: 400px; 
-        }
-    </style>
+    <link rel="stylesheet" href="NewAccStyle.css">
 </head>
+
+<header>
+        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
+        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href = "accountpage.php">User Dashboard</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class = "navbar">
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
+
+        </script>
+        <h>Live Session</h>
+        <h id = "time"> &nbsp Minutes:
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds:
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h>
+
+        </div>
+
+</header>
+
 <body>
-    <!-- <div class="image-section">
-        <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
-    </div> -->
     <div class="container">
-    <div class="header">
-        <h1 class="name">Welcome to Bank!</h1>
-        <h3>Please follow the steps below to create a new account:</h3>
-    </div>
-    <h1 style= "color:white; text-align: center"><b>Account Creation</b></h1>
+        <h2> Account Creation </h2>
+        <br>
+        <h4>Please follow the steps below to create a new account:</h4>
+    <div class = "form-group">
         <form action="NewAccConfirm.php" method="post">
             <?php
             if(isset($_POST["submit"])){
@@ -146,20 +112,23 @@ if(!isset($_SESSION["authenticate"])){
                   }
               }
              ?>
-            <div class="form-group">
-              <select name="accType">
+            <br>
+            <div class="select_style">
+              <select>
                   <option value = "TAccount">Account Type</option>
                   <option value="Savings">Savings</option>
                   <option value="Checkings">Checkings</option>
               </select>
             </div>
-            
+            <br>
+            <br>
             <div class = "form-group">
                 <input type = "number" name = "money" placeholder = "Initial Deposit: ">
             </div>
             <div class = "form-group">
                 <input type = "submit" value = "Enter" name = "submit" >
             </div>
+    </div>
     </div>
 </body>
 </html>

@@ -88,7 +88,7 @@
 </head>
 <body>
     <div class="container">
-    <h1 style= "color:white; text-align: center"><b>Register</b></h1>
+    <h1 style= "color:white; text-align: center"><b>Reset Password</b></h1>
         <form action="sendPassword.php" method="post">
             <?php
             if(isset($_POST["submit"])){
@@ -135,7 +135,7 @@
                 <input type = "password" name = "repeatPassword" placeholder = "Repeat Password: ">
             </div>
             <div class = "form-group">
-                <input type = "submit" value = "Register" name = "submit" >
+                <input type = "submit" value = "Reset Password" name = "submit" >
             </div>
         </form>
         <div>

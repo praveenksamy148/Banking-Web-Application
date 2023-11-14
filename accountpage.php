@@ -20,16 +20,9 @@ if(!isset($_SESSION["authenticate"])){
 ?>
 <!DOCTYPE html>
 <?php
-    // Create a connection
-    $conn = mysqli_connect("localhost", "root", "", "bank users");
-    
-    // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    
+    require_once "database.php"; 
     $sql = "SELECT money, accID, accType, uniqueID FROM account_info";
-    $result = mysqli_query($conn, $sql); 
+    $result = mysqli_query($connection, $sql); 
     
     $accountInfoMatrix = array (
         "accID" => array(),
@@ -79,7 +72,7 @@ if(!isset($_SESSION["authenticate"])){
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
         <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
@@ -119,7 +112,7 @@ if(!isset($_SESSION["authenticate"])){
                 <p class="account-options"><a href='carddetails.html'>Delete Account</a></p>
                 <p class="account-options"><a href='bills.html'>Pay Bills</a></p>
                 <p class="account-options"><a href='transfers.html'>Transfer</a></p>
-                <p class="account-options"><a href='deposits.html'>Deposit</a></p>
+                <p class="account-options"><a href='check.html'>Deposit</a></p>
             </div>
         </div>
         <?php
