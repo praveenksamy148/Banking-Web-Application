@@ -63,12 +63,21 @@ if(!isset($_SESSION["authenticate"])){
                         $query3 = "INSERT INTO check_deposit (amountDeposited, uniqueID, checkImagePath) VALUES ('$money', '$dropdown', '$imagePath')";
 
                         if ($connection->query($query3) === TRUE) {
-                            echo "Check depositted and money has been sent to your account.";
+                            echo "<div class='alert alert-success'>Successfully Uploaded Check!</div>";
+                            require_once "database.php"; 
+                            $userID = $_SESSION["userID"]; 
+                            $transaction = "Successfully Deposited Check to Account: " . $dropdown . " Amount = $". $money; 
+                            $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
+                            $document = $connection->query($transactions); 
+                            if(!$document){
+                                die("Failed to upload documentation"); 
+                            }else{
+                            }
                         } else {
                             echo "Error: " . $sql . "<br>" . $conn->error;
                         }
                     } else {
-                        echo "Error uploading the image.";
+                        die("Error uploading the image.");
                     }
 
                 }
