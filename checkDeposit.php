@@ -1,35 +1,71 @@
 <?php 
-session_start(); 
-if(!isset($_SESSION["authenticate"])){
-    header("location: login.php");
-}
+    session_start(); 
+    if(!isset($_SESSION["authenticate"])){
+        header("location: login.php");
+        exit(); 
+    }else{
+        $timeout_duration = 900; 
+        $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+        if($time_lastLogin > $timeout_duration){
+            session_unset();
+            session_destroy();
+            header('Location: login.php'); 
+            exit(); 
+        }else{
+            $remaining_time = $timeout_duration - $time_lastLogin; 
+            $_SESSION['last_login_timestamp'] = time(); 
+            
+        }
+        
+    }
 ?>
 
 <!DOCTYPE html>
 
     <!-- Title -->
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Bank of Musa - Account Deletion</title>
         <link rel="stylesheet" href="accountDeletionStyles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     </head>
 
     <!-- Top Bar -->
     <header>
-        <img src = "logo.png" alt="Bank of Musa" width = 300 height = 50>
-        <div class="topRight">
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
-            <a href = "#">Temp</a>
+        <div class = "navbar"><a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a></div>
+        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
+        <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
+
+        </script>
+        <h><b>Session Countdown:</b> </h>
+        <h id = "time"> &nbsp Minutes:
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds:
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h>
+
         </div>
     </header>
 
     <div class="grayBar"></div>
 
     <!-- Everything Else -->
-    <main>
+    <body>
         <!-- Center Box -->
         <div class = "centerBox">
             <?php 
@@ -71,7 +107,6 @@ if(!isset($_SESSION["authenticate"])){
                             $document = $connection->query($transactions); 
                             if(!$document){
                                 die("Failed to upload documentation"); 
-                            }else{
                             }
                         } else {
                             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -121,6 +156,16 @@ if(!isset($_SESSION["authenticate"])){
                 <button class="confirm-button" type = "Confirm" name = "confirm">Confirm</button>
             </form>
         </div>
-    </main>
+        <script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
+     </body>
 
 </html>

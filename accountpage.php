@@ -85,7 +85,7 @@ if(!isset($_SESSION["authenticate"])){
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h3>Live Session   </h2>
+        <h3><b>Session Countdown: </b></h3>
         <h4 id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
@@ -143,6 +143,15 @@ if(!isset($_SESSION["authenticate"])){
             }
 
         ?>
-        
+        <script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
     </body>
 </html>
