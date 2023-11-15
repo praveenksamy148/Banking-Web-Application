@@ -139,17 +139,17 @@
                         } 
                         else 
                         {
-                            echo "ERROR: Failed to update money in the account.";
+                            echo "<div class='alert alert-danger'>Failed to update money in the account!</div>";
                         }
                     } 
                     else 
                     {
-                        echo "ERROR: Cannot have a negative balance";
+                        echo "<div class='alert alert-danger'>Cannot have a negative balance!</div>";
                     }
                 } 
                 else 
                 {
-                    echo "ERROR: Cannot find account ID.";
+                    echo "<div class='alert alert-danger'>Cannot find account ID!</div>";
                 }
             }
             else 

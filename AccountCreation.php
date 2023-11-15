@@ -58,10 +58,10 @@
               }
 
               $errors = array();
-              if(empty($accName) OR empty($balType1) OR empty($balID1_Balance){
+              // if(empty($accName) OR empty($balType1) OR empty($balID1_Balance){
               
-                  array_push($errors, "Required to fill out all fields!");
-              }
+              //     array_push($errors, "Required to fill out all fields!");
+              // }
 
               require_once "database.php";
               $dupAccName = "SELECT * FROM acc_info WHERE accName = '$accName'";
