@@ -32,7 +32,7 @@
 </head>
 
 <header>
-        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <a href="Home.html"><img id='logo' width='350' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
         <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      

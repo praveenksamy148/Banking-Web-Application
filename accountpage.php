@@ -68,8 +68,8 @@ if(!isset($_SESSION["authenticate"])){
    
    <!--Alt shadows for the accounts box-shadow: rgba(80, 23, 23, 0.4) 5px 5px, rgba(80, 23, 23, 0.3) 10px 10px, rgba(80, 23, 23, 0.2) 15px 15px, rgba(80, 23, 23, 0.1) 20px 20px, rgba(80, 23, 23, 0.05) 25px 25px;-->
    
-    <header>
-        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+    <header style="display: flex; align-items: center;">
+        <a href="Home.html"><img id='logo' width='200' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
         <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
