@@ -1,70 +1,76 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+@media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+  header {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(80, 23, 23); 
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-family: calibri;
 }
 
 body {
-   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-/* Header */
-header {
-    background-color: maroon;
-    padding: 10px 50px;
-    display: flex;
+    margin-top: 75px;
+    display: block;
     align-items: center;
-    color: gold;
+    background-color: #f7f7f7;
+    font-family: calibri;
 }
 
-header img {
-    max-width: 100%;
-    height: auto;
-}
-
-nav {
+.navbar {
     display: flex;
+    padding: 1rem;
+    color: white;
+    font-family: calibri;
+}
+
+.right {
+    display: flex;
+    margin-left: 29vw;
     justify-content: flex-end;
-    align-items: center;
-    padding: 10px 50px;
-    background-color: maroon;
 }
 
-.nav-links {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
-}
-.spacer {
-    flex-grow: 1; 
-}
+#logo {
+    width: max(75px, 18vw);
+    aspect-ratio: 1/1.15;
+    padding: 0.4rem;
+  }
 
-.nav-links li a {
-    color: gold;
+.navbar > a {
+    color: inherit;
     text-decoration: none;
-    padding: 5px 10px;
-    transition: background-color 0.3s;
 }
 
-.nav-links li a:hover {
-    background-color: gold;
-    color: maroon;
-    border-radius: 5px;
+.navbar > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: white;
 }
 
+/*Page Style*/
 
 .main-content {
     display: flex;
     align-items: center;
-    background-color: goldenrod;
+    background-color: #f7f7f7;
     padding: 50px 30px;
     color: #fff;
 }
 .main-content2 {
     display: flex;
     align-items: center;
-    background-color: maroon;
+    background-color: rgb(80, 23, 23); 
     padding: 50px 30px;
     color: #fff;
 }
@@ -113,18 +119,17 @@ nav {
 .oval-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: blue;
-    color: white;
+    background-color: #f4d3b6;
+    color: #000000;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     text-decoration: none;
     float: right; 
-    transition: background-color 0.3s;
 }
 
 .oval-button:hover {
-    background-color: darkblue;
+    background-color: #d8b59d;
 }
 
 .right-panel img {
@@ -134,7 +139,7 @@ nav {
 }
 
 .info-content {
-    background-color: #fff;
+    background-color: #f9f9f9;
     padding: 30px;
     font-size: 18px;
     line-height: 1.6;
@@ -142,4 +147,12 @@ nav {
 
 .info-content strong {
     color: #E74C3C;  /* Red color */
+}
+
+/* Text Style */
+
+h1{
+    text-align: center;
+    color: #333;
+    font-family: calibri;
 }

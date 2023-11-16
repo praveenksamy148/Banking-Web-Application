@@ -80,7 +80,7 @@ if(!isset($_SESSION["authenticate"])){
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
         <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
@@ -118,7 +118,7 @@ if(!isset($_SESSION["authenticate"])){
                 <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
                 <p class="account-options"><a href='carddetails.html'>Delete Account</a></p>
                 <p class="account-options"><a href='bills.html'>Pay Bills</a></p>
-                <p class="account-options"><a href='transfers.html'>Transfer</a></p>
+                <p class="account-options"><a href='fundsTransfer.php'>Transfer</a></p>
                 <p class="account-options"><a href='deposits.html'>Deposit</a></p>
             </div>
         </div>
@@ -141,7 +141,7 @@ if(!isset($_SESSION["authenticate"])){
                         <p class=\"$accountOptionsClass\"><a href='accountdetails.html'>Account Details</a></p>
                         <p class=\"$accountOptionsClass\"><a href='carddetails.html'>My Card</a></p>
                         <p class=\"$accountOptionsClass\"><a href='bills.html'>Pay Bills</a></p>
-                        <p class=\"$accountOptionsClass\"><a href='transfers.html'>Transfer</a></p>
+                        <p class=\"$accountOptionsClass\"><a href='fundsTransfer.php'>Transfer</a></p>
                         <p class=\"$accountOptionsClass\"><a href='deposits.html'>Deposit</a></p>
                     </div>
                 </div>";

@@ -1,38 +1,76 @@
 <?php 
-session_start(); 
-if(!isset($_SESSION["authenticate"])){
-    header("location: login.php");
-}
+    session_start(); 
+    if(!isset($_SESSION["authenticate"])){
+        header("location: login.php");
+        exit(); 
+    }else{
+        $timeout_duration = 900; 
+        $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+        if($time_lastLogin > $timeout_duration){
+            header('Location: login.php'); 
+            exit(); 
+        }else{
+            $remaining_time = $timeout_duration - $time_lastLogin; 
+            $_SESSION['last_login_timestamp'] = time(); 
+            
+        }
+        
+    }
 ?>
 
 <!DOCTYPE html>
 
     <!-- Title -->
     <head>
-        <title>Bank of Musa - Account Deletion</title>
-        <link rel="stylesheet" href="accountDeletionStyles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Account Creation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="regStyling.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="accountDeletionStyles.css">
     </head>
 
     <!-- Top Bar -->
     <header>
-        <img src = "logo.png" alt="Bank of Musa" width = 300 height = 50>
-        <div class="topRight">
-        <a href='MusaHome.html'>Home</a>
-        <a href='withdraw.php'>Withdraw Funds</a>    
-        <a href='deposits.html'>Make a Deposit</a>    
-        <a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a>
-        <a href='logout.php'>Log Out</a>
-        <a href = "NewAccConfirm.php">Create Account</a>
-        <a href = "accountDeletion.php">Delete Account</a>
-        </div>
-    </header>
+        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
+        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class = "navbar">
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
 
-    <div class="grayBar"></div>
+        </script>
+        <h>Live Session</h>
+        <h id = "time"> &nbsp Minutes:
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds:
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h>
+
+        </div>
+
+</header>
 
     <!-- Everything Else -->
     <main>
         <!-- Center Box -->
-        <div class = "centerBox">
+        <div class = "container">
+        <h2> Account Deletion </h2>
+        <br>
+        <h4>Please follow the steps below to delete an account:</h4>
             <?php 
             if(isset($_POST["confirm"])){
                 $dropdown = $_POST["dropdown"]; 
@@ -59,7 +97,8 @@ if(!isset($_SESSION["authenticate"])){
                 $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
                 $result = $connection->query($sql);
                 ?>
-                <p>Which account would you like to delete?</p>
+                <h5>Which account would you like to delete?</h5>
+                <div class = "select_style">
                 <select name = "dropdown">
                     <?php
                     if ($result->num_rows > 0) 
@@ -76,10 +115,12 @@ if(!isset($_SESSION["authenticate"])){
                     mysqli_close($connection);
                     ?>
                 </select>
+                </div>
                 <br></br>
-                <button class="confirm-button" type = "Confirm" name = "confirm">Confirm</button>
+                <div class = "form-group">
+                <input type = "submit" value = "Submit" name = "submit" >
+            </div>
             </form>
         </div>
     </main>
-
 </html>

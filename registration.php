@@ -3,95 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Registration</title>
+    <title>Bank Of Musa: Registration</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        /* Custom CSS for a maroon and gold theme with improved fonts */
-        body {
-            background-color: maroon;
-            color: gold;
-            font-family: 'Open Sans', sans-serif;
-            text-align: center;
-        }
-
-        .container {
-            background-color: maroon;
-            border: 1px solid gold;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            background-color: gold;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .btn-primary {
-            background-color: gold;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .btn-primary:hover {
-            background-color: #d4af37;
-        }
-
-        .alert {
-            background-color: gold;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            margin: 10px 0;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .logo {
-            max-width: 150px;
-            display: block;
-            margin: 0 auto 20px;
-        }
-
-        #buttonSize {
-            background-color: gold;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        #buttonSize:hover {
-            background-color: #d4af37;
-        }
-        img{
-            height: 200px; 
-            width: 400px; 
-        }
-    </style>
+    <link rel="stylesheet" href="registrationStyle.css">
 </head>
+
+<header>
+    <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+    <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+    <div class="navbar"><a href="registration.php">Registration</a></div>       
+    <div class="navbar"><a href="login.php">Login</a></div>      
+    <div class="navbar"><a href="about.php">About Us</a></div>
+</header>
+
 <body>
-    <!-- <div class="image-section">
-        <img src= "BankOfMusa.png" alt = "Company Logo" class= "logo">
-    </div> -->
     <div class="container">
-    <h1 style= "color:white; text-align: center"><b>Register</b></h1>
+    <h3>Account Registration</h3>
+    <br>
+    <h4>Please fill out the form to register: </h4>
+    <br>
+    <div class = "form-group">
         <form action="registration.php" method="post">
             <?php
             if(isset($_POST["submit"])){
@@ -152,7 +84,7 @@
                 <input type = "text" name = "lastName" placeholder = "Last Name: ">
             </div>
             <div class = "form-group">
-                <input type = "email" name = "email" placeholder = "Email: ">
+                <input type = "text" name = "email" placeholder = "Email: ">
             </div>
             <div class = "form-group">
                 <input type = "date" name = "dateOfBirth" placeholder = "Date of Birth: " onfocus= "(this.type='date')" onblur="(this.type='text')">
@@ -161,7 +93,7 @@
                 <input type = "text" name = "address" placeholder = "Permanent Address: ">
             </div>
             <div class = "form-group">
-                <input type = "text" name = "zipcode" placeholder = "Zipcode: ">
+                <input type = "number" name = "zipcode" placeholder = "Zipcode: ">
             </div>
             <div class = "form-group">
                 <input type = "password" name = "ssn" placeholder = "Social Security Number: ">
@@ -180,7 +112,8 @@
             <p>Already have an account?</p>
             
         </div>
-        <button onclick="window.location.href = 'login.php'" id="buttonSize">Login Here</button>
+        <button class = "loginButton" onclick="window.location.href = 'login.php'" id="buttonSize">Login Here</button>
+        </div>
     </div>
 </body>
 </html>
