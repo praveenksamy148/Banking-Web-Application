@@ -143,6 +143,7 @@ if(!isset($_SESSION["authenticate"])){
             }
 
         ?>
+        <button id="showTableBtn">Show Transactions</button>
         <script>
     var countdown = <?php echo json_encode($remaining_time); ?>; 
     var timer = setInterval(function() {
@@ -153,5 +154,39 @@ if(!isset($_SESSION["authenticate"])){
         if(countdown <= 0) clearInterval(timer);
     }, 1000);
 </script>
+<table id="transactionsTable" style="display: none;">
+    <?php 
+        require_once "database.php"; 
+        // session_start();  // Ensure session is started
+        $accID = $_SESSION["userID"]; 
+        $query = "SELECT transaction, time FROM user_transactions WHERE accID = '$accID' ORDER BY time DESC"; 
+        $result = mysqli_query($connection, $query); 
+        if(!$result){
+            die("Query failed: " . mysqli_error($connection)); 
+        }
+    ?>
+     <tr>
+        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2;">Account Transaction</th>
+        <th style="border: 1px solid black; padding: 8px; background-color: #f2f2f2;">Transaction Date & Time</th>
+    </tr>
+    <?php 
+        while($row = $result->fetch_assoc()) {
+            $accTransactions = $row["transaction"];
+            $time = $row["time"];
+            echo "<tr><td>$accTransactions</td><td>$time</td></tr>";
+        }
+    ?>
+</table>
+    <script>
+        document.getElementById('showTableBtn').addEventListener('click', function() {
+            var table = document.getElementById('transactionsTable');
+            if (table.style.display === 'none') {
+                table.style.display = 'block';
+            } else {
+                table.style.display = 'none';
+            }
+        });
+    </script>
+    
     </body>
 </html>
