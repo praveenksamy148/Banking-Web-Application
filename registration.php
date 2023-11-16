@@ -94,6 +94,11 @@
     <h1 style= "color:white; text-align: center"><b>Register</b></h1>
         <form action="registration.php" method="post">
             <?php
+            use PHPMailer\PHPMailer\PHPMailer; 
+            use PHPMailer\PHPMailer\SMTP; 
+            use PHPMailer\PHPMailer\Exception; 
+    
+            require '../vendor/autoload.php'; 
             if(isset($_POST["submit"])){
                 $firstName = $_POST["firstName"];
                 $lastName = $_POST["lastName"];
@@ -104,6 +109,7 @@
                 $ssn = $_POST["ssn"];
                 $password = $_POST["password"];
                 $repeatPassword = $_POST["repeatPassword"];
+                $pinNumber = random_int(10000, 99999); 
                 
                 //encrypt password 
                 $hash_password = password_hash($password, PASSWORD_BCRYPT); 
@@ -133,9 +139,34 @@
                         echo "<div class= 'alert alert-danger'>$error</div>";
                     }
                 }else{
-                    $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$hash_password')";
+                    $sql = "INSERT INTO user_info (first_name, last_name, email, date_of_birth, ssn, address, zipcode, password, pinNumber) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$ssn', '$address', '$zipcode', '$hash_password', '$pinNumber')";
                     $results = mysqli_query($connection, $sql); 
                     if($results){
+                        $mail = new PHPMailer(true); 
+                        try{
+                            $mail->SMTPDebug = 0; 
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com'; 
+                            $mail->SMTPAuth = true; 
+                            $mail->Username = 'bankmusa6@gmail.com'; 
+                            $mail->Password = 'pmbwfjyjrcrkjnfm'; 
+                            $mail->SMTPSecure = "tls"; 
+                            $mail->Port = 587; 
+                            $mail->setFrom('bankmusa6@gmail.com', 'Bank of Musa', 0); 
+                            $mail->addAddress($email, $firstName); 
+                            $mail->isHTML(true); 
+                            $mail->Subject = 'Welcome to Bank of Musa! - Your Journey Begins Here'; 
+                            $mail->Body = '
+                            <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5; padding: 15px;">
+                                <h1 style="color: #004a99;">Welcome to Bank of Musa!</h1>
+                                <p>We are absolutely thrilled to have you join our banking family! As a valued member of our bank, you now have access to all of our professional services and resources. Now that you are a member, you have access to your very own user dashboard which reflects your different accounts, balances, and transactions. To access your ATM, we have created an unique PIN number for you: <b>' . $pinNumber . '</b></p>
+                                <p>For any assistance, please feel free to contact our customer support team. Thank you again for choosing Bank of Musa for your financial needs. We look forward to a prosperous relationship!</p>
+                                <p>Best Regards, <br> Kobe Bryant</p>
+                            </div>';
+                        $mail->send();
+                        }catch(Exception $e){
+                            echo "<div class='alert alert-danger'>Unable to Send Message!</div>";
+                        }
                         header("Location: login.php");
 
                     }else{
