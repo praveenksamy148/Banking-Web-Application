@@ -36,10 +36,13 @@ if(!isset($_SESSION["authenticate"])){
             if(isset($_POST["confirm"]) && isset($_FILES['image'])){
                 $dropdown = $_POST["dropdown"]; 
                 $money = $_POST["moneyAmount"];
-                //$check = $_POST["checkImage"];
                 require_once "database.php"; 
+                
                 $query = "SELECT * FROM account_info WHERE uniqueID = '$dropdown'";
                 $result = mysqli_query($connection, $query);
+                if(!$result){
+                    die("Query failed: ". mysqli_error($connection));
+                }
 
                 if ($money <= 0) {
                     die("Invalid amount depositted");
@@ -49,32 +52,33 @@ if(!isset($_SESSION["authenticate"])){
                     $row = mysqli_fetch_assoc($result);
                     $newMoney = $row["money"] + $money;
                     $query2 = "UPDATE account_info SET money = '$newMoney' WHERE uniqueID = '$dropdown'";
+
+                    $targetDirectory = "checkUploads/";
+                    $targetFile = $targetDirectory . time() . basename($_FILES["image"]["name"]);
+                    
+                    $allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+                    if (in_array($_FILES["image"], $allowedTypes)) {
+                        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+                            $imagePath = $targetFile;
+                            
+                            $query3 = "INSERT INTO check_deposit (amountDeposited, uniqueID, checkImagePath) VALUES ('$money', '$dropdown', '$imagePath')";
+
+                            if ($connection->query($query3) === TRUE) {
+                                echo "Check depositted and money has been sent to your account.";
+                            } else {
+                                die("Error: " . $sql . "<br>" . $conn->error);
+                            }
+                        } else {
+                            die("Error uploading the image.");
+                        }
+                    } else {
+                        die("Invalid file type: Only JPEG, PNG, and GIF files are supported.");
+                    }
+
                     $result2 = mysqli_query($connection, $query2);
                     if(!$result2){
                         die("Query failed: ". mysqli_error($connection));
                     }
-
-                    $targetDirectory = "checkUploads/";
-                    $targetFile = $targetDirectory . time() . basename($_FILES["image"]["name"]);
-                
-                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-                        $imagePath = $targetFile;
-                        
-                        $query3 = "INSERT INTO check_deposit (amountDeposited, uniqueID, checkImagePath) VALUES ('$money', '$dropdown', '$imagePath')";
-
-                        if ($connection->query($query3) === TRUE) {
-                            echo "Check depositted and money has been sent to your account.";
-                        } else {
-                            echo "Error: " . $sql . "<br>" . $conn->error;
-                        }
-                    } else {
-                        echo "Error uploading the image.";
-                    }
-
-                }
-                
-                if(!$result){
-                    die("Query failed: ". mysqli_error($connection));
                 }
             }
             ?>
