@@ -16,7 +16,6 @@
             $_SESSION['last_login_timestamp'] = time(); 
             
         }
-        
     }
 ?>
 
@@ -92,7 +91,14 @@
 
                     $targetDirectory = "checkUploads/";
                     $targetFile = $targetDirectory . time() . basename($_FILES["image"]["name"]);
-                
+                    $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION)); 
+                    if($fileType != "img"){
+                        echo "<script>
+                                alert('Only IMG files are accepted!');
+                                window.location.href='checkDeposit.php';
+                              </script>";
+                        exit();
+                    }
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
                         $imagePath = $targetFile;
                         

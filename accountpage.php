@@ -51,6 +51,11 @@ if(!isset($_SESSION["authenticate"])){
             $numOfAccounts++;
         }
     }
+
+    if (!$accountInfoMatrix["accType"][0]) {
+        header("Location: /Banking_App/Banking-Web-Application/NewAccConfirm.php");
+        exit();
+    }
     
 
 
