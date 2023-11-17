@@ -16,144 +16,94 @@ if(!isset($_SESSION["authenticate"])){
     }
     
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funds Transfer</title>
-    <style>
-        /* Custom CSS for your design */
-        html, body {
-            min-height: 100%;
-        }
-
-        body {
-            background-color: #800000;
-            color: gold;
-            font-family: 'Open Sans', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            background-color: maroon;
-            border: 1px solid gold;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            background-color: white;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .btn-primary {
-            background-color: gold;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .btn-primary:hover {
-            background-color: #d4af37;
-        }
-
-        .alert {
-            background-color: gold;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            margin: 10px 0;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        #buttonSize {
-            background-color: white;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        #buttonSize:hover {
-            background-color: #d4af37;
-        }
-
-    </style>
+    <title>Bank Of Musa: Transfer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="transferStyle.css">
 </head>
-    <header>
-        <a href="MusaHome.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+<header>
+<a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
-        <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
         <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='fundsTransfer.html'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
-    </header>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class = "navbar">
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
+
+        </script>
+        <h>Live Session</h>
+        <h id = "time"> &nbsp Minutes:
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds:
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h>
+    </div>
+</header>
+
 <body>
 <div class="container">
-        <h1>Funds Transfer</h1>
+<h2>Funds Transfer</h2>
+<br>
+<h4>Please select and fill the form below:</h4>
+    <div class = "form-group">
         <form action="fundsTransfer.php" method="post">
         <input type="hidden" name="transferFunds" value="1">
-        <div class="form-group">
         <?php
             $userID = $_SESSION["userID"];
             require_once "database.php";
             $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
             $result = $connection->query($sql);
         ?>
-                        <div class = "select_style">
-                            <h5> Select an account: </h5>
-                            <select name="selectedAcc">
-                                <?php
-                                if ($result->num_rows > 0) 
-                                {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $accountId = $row["uniqueID"];
-                                        echo "<option value='$accountId'>$accountId</option>";
-                                    }
-                                }
-                                else
-                                {
-                                    echo "There are no accounts associated with this user ID.";
-                                }
-                                ?>
-                            </select>
-            </div>
-            </div>
-            <div class="form-group">
-                <input type="text" name="toAccount" placeholder="To Balance Account:" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <input type="number" step="0.01" name="amount" placeholder="Amount:" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Transfer Funds" class="btn-primary">
-            </div>
-        </form>
-    <?php
+        <div class = "select_style">
+            <h5> Select an account: </h5>
+            <select name="selectedAcc">
+                 <?php
+                if ($result->num_rows > 0) 
+                {
+                    while ($row = $result->fetch_assoc()) {
+                        $accountId = $row["uniqueID"];
+                        echo "<option value='$accountId'>$accountId</option>";
+                    }
+                }
+                else
+                {
+                    echo "There are no accounts associated with this user ID.";
+                }
+                ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <br>
+            <input type="text" name="toAccount" placeholder="To Balance Account:" required>
+        </div>
+        <div class = "form-group">
+            <input type="number" name="amount" placeholder="Amount: ">
+        </div>
+        <div>
+            <input type="submit" value="Enter" name="submit">
+        </div>
+    </form>
+    </div>
+</div>
 
+    <?php
     require_once 'database.php';
 
     if (isset($_POST["transferFunds"])) {
