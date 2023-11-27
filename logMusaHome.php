@@ -1,3 +1,23 @@
+<?php 
+session_start(); 
+if(!isset($_SESSION["authenticate"])){
+    header("location: MusaHome.html");
+    exit(); 
+}else{
+    $timeout_duration = 900; 
+    $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+    if($time_lastLogin > $timeout_duration){
+        header('Location: login.php'); 
+        exit(); 
+    }else{
+        $remaining_time = $timeout_duration - $time_lastLogin; 
+        $_SESSION['last_login_timestamp'] = time(); 
+        
+    }
+    
+}
+
+?>
 <!DOCTYPE html>
 <head>
     <title>Bank of Musa - Home</title>
@@ -11,8 +31,8 @@
         </div>
         <ul class="nav-links">
             <li class="spacer"></li>
-            <li><a href="registration.php">User Registration</a></li>
-            <li><a href="login.php">User Login</a></li>
+            <li><a href="accountpage.php">Account Dashboard</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="about.php">About Us</a></li>
         </ul>
            

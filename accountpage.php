@@ -75,7 +75,7 @@ if(!isset($_SESSION["authenticate"])){
    
     <header style="display: flex; align-items: center;">
         <a href="Home.html"><img id='logo' width='200' height='50' src="logo.png"></a>
-        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='logMusaHome.php'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
         <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
         <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
