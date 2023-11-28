@@ -1,43 +1,47 @@
 <?php 
-session_start(); 
-if(!isset($_SESSION["authenticate"])){
-    header("location: login.php");
-    exit(); 
-}else{
-    $timeout_duration = 900; 
-    $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
-    if($time_lastLogin > $timeout_duration){
-        header('Location: login.php'); 
+    session_start(); 
+    if(!isset($_SESSION["authenticate"])){
+        header("location: login.php");
         exit(); 
     }else{
-        $remaining_time = $timeout_duration - $time_lastLogin; 
-        $_SESSION['last_login_timestamp'] = time(); 
+        $timeout_duration = 900; 
+        $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+        if($time_lastLogin > $timeout_duration){
+            header('Location: login.php'); 
+            exit(); 
+        }else{
+            $remaining_time = $timeout_duration - $time_lastLogin; 
+            $_SESSION['last_login_timestamp'] = time(); 
+            
+        }
         
     }
-    
-}
-
 ?>
+
 <!DOCTYPE html>
 
     <!-- Title -->
     <head>
-        <title>Bank of Musa - Account Deletion</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <link rel="stylesheet" href="accountDeletionStyles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Account Creation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="regStyling.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="accountDeletionStyles.css">
     </head>
 
     <!-- Top Bar -->
     <header>
-        <img src = "logo.png" alt="Bank of Musa" width = 300 height = 50>
-        <div class="topRight">
-        <a href='MusaHome.html'>Home</a>
-        <a href='withdraw.php'>Withdraw Funds</a>    
-        <a href='checkDeposit.php'>Make a Deposit</a>    
-        <a href='accountpage.php' style='flex-grow: 1;'>User Dashboard</a>
-        <a href='logout.php'>Log Out</a>
-        <a href = "NewAccConfirm.php">Create Account</a>
-        <a href = "accountDeletion.php">Delete Account</a>
+        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
+        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
             var minutes = Math.floor(countdown / 60); 
@@ -45,8 +49,8 @@ if(!isset($_SESSION["authenticate"])){
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h3><b>Session Countdown: </b></h3>
-        <h4 id = "time"> &nbsp Minutes:
+        <h>Live Session</h>
+        <h id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
             </script>
@@ -54,17 +58,19 @@ if(!isset($_SESSION["authenticate"])){
             <script type="text/javascript">
             document.write(seconds)
             </script>
-      </h4>
-        </div>
-        </div>
-    </header>
+      </h>
 
-    <div class="grayBar"></div>
+        </div>
+
+</header>
 
     <!-- Everything Else -->
-    <body>
+    <main>
         <!-- Center Box -->
-        <div class = "centerBox">
+        <div class = "container">
+        <h2> Account Deletion </h2>
+        <br>
+        <h4>Please follow the steps below to delete an account:</h4>
             <?php 
             if(isset($_POST["confirm"])){
                 $dropdown = $_POST["dropdown"]; 
@@ -77,21 +83,11 @@ if(!isset($_SESSION["authenticate"])){
                 }
                 
                 if(mysqli_affected_rows($connection) > 0){
-                    echo "<div class='alert alert-success'>Successfully Deleted Account!</div>";
-                    require_once "database.php"; 
-                    $userID = $_SESSION["userID"]; 
-                    $transaction = "Deleted Account Number: " . $dropdown;  
-                    $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
-                    $document = $connection->query($transactions); 
-                    if(!$document){
-                        die("Failed to upload documentation"); 
-                    }else{
-                        echo "<div class='alert alert-success'>Uploaded!</div>";
-                    }
+                    echo "Account deleted successfully.";
                 } else {
                     echo "No account found to delete.";
                 }
-                // mysqli_close($connection); 
+                mysqli_close($connection); 
             }
             ?>
             <form action = "accountDeletion.php" method = "post">
@@ -101,7 +97,8 @@ if(!isset($_SESSION["authenticate"])){
                 $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
                 $result = $connection->query($sql);
                 ?>
-                <p>Which account would you like to delete?</p>
+                <h5>Which account would you like to delete?</h5>
+                <div class = "select_style">
                 <select name = "dropdown">
                     <?php
                     if ($result->num_rows > 0) 
@@ -118,20 +115,12 @@ if(!isset($_SESSION["authenticate"])){
                     mysqli_close($connection);
                     ?>
                 </select>
+                </div>
                 <br></br>
-                <button class="confirm-button" type = "Confirm" name = "confirm">Confirm</button>
+                <div class = "form-group">
+                <input type = "submit" value = "Submit" name = "submit" >
+            </div>
             </form>
         </div>
-        <script>
-    var countdown = <?php echo json_encode($remaining_time); ?>; 
-    var timer = setInterval(function() {
-        countdown--;
-        var minutes = Math.floor(countdown / 60); 
-        var seconds = countdown % 60; 
-        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
-        if(countdown <= 0) clearInterval(timer);
-    }, 1000);
-</script>
-    </body>
-
+    </main>
 </html>
