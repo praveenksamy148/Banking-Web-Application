@@ -11,7 +11,7 @@
     <style>
         /* Custom CSS for a maroon and gold theme with improved fonts */
         body {
-            background-color: rgb(80, 23, 23); 
+            background-color: maroon; 
             color: gold;
             font-family: 'Open Sans', sans-serif;
             text-align: center;
@@ -112,6 +112,7 @@
                     session_start();
                     $_SESSION["user"] = "yes"; 
                     $firstName = $row["first_name"]; 
+                    $_SESSION["firstName"] = $firstName; 
                     $_SESSION["username"] = $row["email"]; 
                     $_SESSION["userID"] = $row["ID"]; 
                     $mail = new PHPMailer(true); 

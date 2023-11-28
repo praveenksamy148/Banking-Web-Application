@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background-color: maroon; 
         }
         .container {
             background-color: white;
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
             require '../vendor/autoload.php'; 
             if($_SERVER["REQUEST_METHOD"] == "POST"){
-                echo  
+                echo "<div class='alert alert-success'>Message Sent! We will contact you in the coming days!</div>";
                 $concern = $_POST["concern"];
                 $mail = new PHPMailer(true); 
                 // session_start(); 
