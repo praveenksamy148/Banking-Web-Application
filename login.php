@@ -11,7 +11,7 @@
     <style>
         /* Custom CSS for a maroon and gold theme with improved fonts */
         body {
-            background-color: maroon;
+            background-color: rgb(80, 23, 23); 
             color: gold;
             font-family: 'Open Sans', sans-serif;
             text-align: center;
