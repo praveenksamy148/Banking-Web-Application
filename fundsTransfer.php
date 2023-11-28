@@ -22,95 +22,21 @@ if(!isset($_SESSION["authenticate"])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funds Transfer</title>
-    <style>
-        /* Custom CSS for your design */
-        html, body {
-            min-height: 100%;
-        }
-
-        body {
-            background-color: #800000;
-            color: gold;
-            font-family: 'Open Sans', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            background-color: maroon;
-            border: 1px solid gold;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            background-color: white;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        .btn-primary {
-            background-color: gold;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .btn-primary:hover {
-            background-color: #d4af37;
-        }
-
-        .alert {
-            background-color: gold;
-            color: maroon;
-            border: 1px solid maroon;
-            border-radius: 5px;
-            margin: 10px 0;
-            padding: 10px;
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        #buttonSize {
-            background-color: white;
-            color: maroon;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-        }
-
-        #buttonSize:hover {
-            background-color: #d4af37;
-        }
-
-    </style>
+    <title>Bank Of Musa: Transfer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fundTransfer.css">
 </head>
     <header>
         <a href="MusaHome.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
-        <div class="navbar"><a href='NewAccConfirm.php'>Create Account</a></div>       
-        <div class="navbar"><a href='checkDeposit.php'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='accountDeletion.php' style='flex-grow: 1;'>Delete Account</a></div>
-        <div class="navbar"><a href='withdraw.php'>Withdraw</a></div>
-        <div class="navbar"><a href = "accountpage.php">User Dashboard</a></div>
+        <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
+        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
     </header>
 <body>
 <div class="container">
@@ -206,7 +132,7 @@ if(!isset($_SESSION["authenticate"])){
                     echo "Invalid 'To Account' ID or insufficient balance.";
                 }
             } else {
-                echo "Insufficient balance in the '$fromAccountType' account OR negative value.";
+                echo "Insufficient balance inputted OR negative value.";
             }
         } else {
             echo "Invalid 'From Account' ID.";
