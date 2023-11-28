@@ -34,6 +34,25 @@ if(!isset($_SESSION["authenticate"])){
             <li><a href="accountpage.php">Account Dashboard</a></li>
             <li><a href="logout.php">Log Out</a></li>
             <li><a href="about.php">About Us</a></li>
+            <li>
+                <script>
+                    var countdown = <?php echo json_encode($remaining_time);?>; 
+                    var minutes = Math.floor(countdown / 60); 
+                    var seconds = countdown % 60; 
+                    document.getElementById('time').textContent = countdown; 
+
+                </script>
+                <h3><b>Session Countdown: </b></h3>
+                <h4 id = "time"> &nbsp Minutes:
+                    <script type="text/javascript">
+                    document.write(minutes)
+                    </script>
+                    Seconds:
+                    <script type="text/javascript">
+                    document.write(seconds)
+                    </script>
+                </h4>
+            </li>
         </ul>
            
     </nav>
@@ -68,5 +87,15 @@ if(!isset($_SESSION["authenticate"])){
             </div>
         </section>
     </div>
+    <script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
 </body>
 </html>
