@@ -20,26 +20,26 @@
 ?>
 
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Of Musa: Withdraw</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="checkDeposit.css">
+</head>
 
-    <!-- Title -->
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bank of Musa - Account Deletion</title>
-        <link rel="stylesheet" href="accountDeletionStyles.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    </head>
-
-    <!-- Top Bar -->
-    <header>
-        <div class = "navbar"><a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a></div>
+<header>
+        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
             var minutes = Math.floor(countdown / 60); 
@@ -47,7 +47,7 @@
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h><b>Session Countdown:</b> </h>
+        <h>Live Session</h>
         <h id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
@@ -59,14 +59,15 @@
       </h>
 
         </div>
-    </header>
+
+</header>
 
     <div class="grayBar"></div>
 
     <!-- Everything Else -->
     <body>
         <!-- Center Box -->
-        <div class = "centerBox">
+        <div class = "container">
             <?php 
             if(isset($_POST["confirm"]) && isset($_FILES['image'])){
                 $dropdown = $_POST["dropdown"]; 
@@ -128,16 +129,18 @@
                 }
             }
             ?>
+            <h2> Check Deposit </h2>
+            <br>
+            <h4> Please follow the steps below to deposit a check into an account </h4>
+            <div class="form-group">
             <form action = "checkDeposit.php" method = "post" enctype="multipart/form-data">
-                <p>How much money are you depositing?</p>
-                <input type="moneyAmount" placeholder="Enter amount" name="moneyAmount">
-                <p>Which account would you like to deposit into?</p>
                 <?php
                     $userID = $_SESSION["userID"];
                     require_once "database.php";
                     $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
                     $result = $connection->query($sql);
                 ?>
+                
                 <div class = "select_style">
                     <h5> Select an account: </h5>
                     <select name="dropdown">
@@ -156,11 +159,22 @@
                         ?>
                     </select>
                 </div>
-                <p>Please upload the photo</p>
+                <div>
+                    <br>
+                    <input type = "number" placeholder="Amount:" name="moneyAmount">
+                </div>
+                <br>
+                <h5>Please upload a photo</h5>
                 <input type="file" name="image">
-                <br></br>
-                <button class="confirm-button" type = "Confirm" name = "confirm">Confirm</button>
+                <br>
+                <br>
+                <input type="submit" value="Enter" name="confirm">
+                <div>
+                    <br>
+                    <button onclick = "window.location.href = 'accountpage.php'" class = "homeButton" >Back to Home Page</button>
+                </div>
             </form>
+            </div>
         </div>
         <script>
     var countdown = <?php echo json_encode($remaining_time); ?>; 

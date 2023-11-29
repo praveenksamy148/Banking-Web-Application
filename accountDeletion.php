@@ -40,7 +40,7 @@
         <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
-        <div class="navbar"><a href = "accountpage.php">Account Dashboard</a></div>
+        <div class="navbar"><a href = "accountpage.php">User Dashboard</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -49,7 +49,7 @@
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h>Live Session</h>
+        <h>Live Session:</h>
         <h id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
@@ -121,6 +121,16 @@
                 <input type = "submit" value = "Submit" name = "submit" >
             </div>
             </form>
+            <script>
+                var countdown = <?php echo json_encode($remaining_time); ?>; 
+                var timer = setInterval(function() {
+                    countdown--;
+                    var minutes = Math.floor(countdown / 60); 
+                    var seconds = countdown % 60; 
+                    document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+                    if(countdown <= 0) clearInterval(timer);
+                }, 1000);
+            </script>
         </div>
     </main>
 </html>

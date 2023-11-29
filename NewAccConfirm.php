@@ -129,7 +129,7 @@
             <br>
             <div class="select_style">
               <select name = "accType">
-                  <option value = "TAccount">Account Type</option>
+                  <option value = "TAccount" selected disabled>Account Type</option>
                   <option value="Savings">Savings</option>
                   <option value="Checkings">Checkings</option>
               </select>
