@@ -32,13 +32,14 @@
 
 <header>
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
-        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
-        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
-        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href='logMusaHome.php'>Home</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href='checkDeposit.php'>Check Deposit</a></div> 
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>            
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href = "contact.php">Contact Us</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -47,7 +48,7 @@
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h>Live Session</h>
+        <h>Live Session:</h>
         <h id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
