@@ -113,6 +113,7 @@ if(!isset($_SESSION["user"])){
                         $_SESSION["lastName"] = $row["last_name"]; 
                         $_SESSION["start"] = time(); 
                         $_SESSION["expire"] = $_SESSION['start'] + (30 * 60); 
+                        $_SESSION['last_login_timestamp'] = time(); 
                         header("Location: accountpage.php"); 
                     }else{
                         echo "<div class= 'alert alert-danger'>Incorrect Code!</div>";
