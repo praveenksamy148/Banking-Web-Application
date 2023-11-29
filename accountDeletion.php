@@ -34,13 +34,13 @@
     <!-- Top Bar -->
     <header>
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
-        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='logMusaHome.php'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='checkDeposit.php'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
-        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href = "accountpage.php">Account Dashboard</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -72,7 +72,7 @@
         <br>
         <h4>Please follow the steps below to delete an account:</h4>
             <?php 
-            if(isset($_POST["confirm"])){
+            if(isset($_POST["submit"])){
                 $dropdown = $_POST["dropdown"]; 
                 require_once "database.php"; 
                 $query = "DELETE FROM account_info WHERE uniqueID = '$dropdown'";
@@ -83,14 +83,14 @@
                 }
                 
                 if(mysqli_affected_rows($connection) > 0){
-                    echo "Account deleted successfully.";
+                    echo "<div class= 'alert alert-success'>Account Successfully Deleted!</div>";
                 } else {
                     echo "No account found to delete.";
                 }
-                mysqli_close($connection); 
+                // mysqli_close($connection); 
             }
             ?>
-            <form action = "accountDeletion.php" method = "post">
+            <form action = "accountDeletion.php" method = "post" >
                 <?php
                 $userID = $_SESSION["userID"];
                 require_once "database.php";
@@ -112,7 +112,7 @@
                     {
                         echo "There are no accounts associated with this user ID.";
                     }
-                    mysqli_close($connection);
+                    // mysqli_close($connection);
                     ?>
                 </select>
                 </div>

@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
             require '../vendor/autoload.php'; 
             if($_SERVER["REQUEST_METHOD"] == "POST"){
-                echo  
+                echo "<div class= 'alert alert-success'>Message Sent! Admin Member will contact you shortly. </div>";
                 $concern = $_POST["concern"];
                 $mail = new PHPMailer(true); 
                 // session_start(); 
