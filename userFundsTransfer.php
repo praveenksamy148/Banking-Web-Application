@@ -40,73 +40,48 @@ if(!isset($_SESSION["authenticate"])){
     </header>
 <body>
 <div class="container">
-    <h1>Funds Transfer</h1>
-    <form action="fundsTransfer.php" method="post">
+        <h1>Funds Transfer</h1>
+        <form action="fundsTransfer.php" method="post">
         <input type="hidden" name="transferFunds" value="1">
         <div class="form-group">
-            <?php
+        <?php
             $userID = $_SESSION["userID"];
             require_once "database.php";
             $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
             $result = $connection->query($sql);
-            $accounts = $result->fetch_all(MYSQLI_ASSOC); // Fetch all accounts once
-            ?>
-            <div class="select_style">
-                <h5>Select an account:</h5>
-                <select id="fromAccount" name="fromAccount" onchange="updateToAccountDropdown()">
-                    <?php foreach ($accounts as $row): ?>
-                        <option value="<?php echo $row['uniqueID']; ?>">
-                            <?php echo $row['uniqueID']; ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+        ?>
+                        <div class = "select_style">
+                            <h5> Select an account: </h5>
+                            <select name="selectedAcc">
+                                <?php
+                                if ($result->num_rows > 0) 
+                                {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $accountId = $row["uniqueID"];
+                                        echo "<option value='$accountId'>$accountId</option>";
+                                    }
+                                }
+                                else
+                                {
+                                    echo "There are no accounts associated with this user ID.";
+                                }
+                                ?>
+                            </select>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="select_style">
-                <h5>Transfer to account:</h5>
-                <select id="toAccount" name="toAccount">
-                    <?php foreach ($accounts as $row): ?>
-                        <option value="<?php echo $row['uniqueID']; ?>">
-                            <?php echo $row['uniqueID']; ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
             </div>
-        </div>
-        <div class="form-group">
-            <input type="number" step="0.01" name="amount" placeholder="Amount:" class="form-control" required>
-        </div>
-       <div class="form-group" style = "text-align: center;">
+            <div class="form-group">
+                <input type="text" name="toAccount" placeholder="To Balance Account:" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input type="number" step="0.01" name="amount" placeholder="Amount:" class="form-control" required>
+            </div>
+            <div class="form-group" style = "text-align: center;">
                 <input type="submit" value="Transfer Funds" class="btn-primary">
-        </div>
-        <div style="text-align: center;">
-            <button onclick="window.location.href = 'userFundsTransfer.php'" id="buttonSize">Transfer to Different User Here</button>
-        </div>
-    </form>
-</div>
-<script>
-function updateToAccountDropdown() {
-    var fromAccount = document.getElementById('fromAccount');
-    var toAccount = document.getElementById('toAccount');
-    var selectedFromAccount = fromAccount.value;
-
-    // Clear current options in toAccount
-    toAccount.innerHTML = '';
-
-    // Add options to toAccount excluding the selected option in fromAccount
-    <?php foreach ($accounts as $row): ?>
-    if ('<?php echo $row['uniqueID']; ?>' !== selectedFromAccount) {
-        var option = document.createElement('option');
-        option.value = '<?php echo $row['uniqueID']; ?>';
-        option.text = '<?php echo $row['uniqueID']; ?>';
-        toAccount.appendChild(option);
-    }
-    <?php endforeach; ?>
-}
-// Initialize toAccount on page load
-document.addEventListener('DOMContentLoaded', updateToAccountDropdown);
-</script>
+            </div>
+            <div style="text-align: center;">
+                <button onclick="window.location.href = 'fundsTransfer.php'" id="buttonSize">Transfer to Personal Account Here</button>
+            </div>
+        </form>
     <?php
 
     require_once 'database.php';
@@ -116,8 +91,17 @@ document.addEventListener('DOMContentLoaded', updateToAccountDropdown);
         // mysqli_stmt_bind_param($stmt, "s", $_POST["fromAccount"]);
         // mysqli_stmt_execute($stmt);
         // $result = mysqli_stmt_get_result($stmt);
-        $fromUniqueID = $_POST["fromAccount"];
+        $fromUniqueID = $_POST["selectedAcc"];
+        // $fromAccountID = $_POST["fromAccount"];
         $toUniqueID = $_POST["toAccount"];
+        // $toAccountID = $_POST["toAccount"];
+        // $fromAccountType = $_POST["accountType"];
+        /* if ($_POST["accountType"] == "Checking") {
+            $fromAccountType = 1;
+        } else {
+            $fromAccountType = 2;
+        }
+        */
         $amount = $_POST["amount"];
 
         // Perform funds transfer

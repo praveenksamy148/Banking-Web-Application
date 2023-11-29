@@ -82,7 +82,6 @@ if(!isset($_SESSION["authenticate"])){
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
-        <div class="navbar"><a href = "contact.php">Contact Us</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -110,9 +109,9 @@ if(!isset($_SESSION["authenticate"])){
             <div class="account-container-top">
                 <h1>Ignore this.</h1>
             </div>
-            <h1><?php echo $accountInfoMatrix["accType"][0]?>  #<?php echo $accountInfoMatrix["accID"][0] ?></h1>
+            <h1><?php echo $accountInfoMatrix["accType"][0]?> <?php echo " #". $accountInfoMatrix["accID"][0] ?></h1>
             <h3>Available balance</h3>
-            <h2><?php echo "$" . $accountInfoMatrix["money"][0]?></h2>
+            <h2><?php echo " $" .$accountInfoMatrix["money"][0]?></h2>
             <div class="account-options-container">
                 <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
                 <p class="account-options"><a href='carddetails.html'>Delete Account</a></p>
@@ -133,7 +132,7 @@ if(!isset($_SESSION["authenticate"])){
                     <div class=\"$accountContainerTopClass\">
                         <h1>Ignore this.</h1>
                     </div>
-                    <h1>" . $accountInfoMatrix["accType"][$i] . "  #" . $accountInfoMatrix["accID"][$i] . "</h1>
+                    <h1>" . $accountInfoMatrix["accType"][$i] . " #" . $accountInfoMatrix["accID"][$i] . "</h1>
                     <h3>Available balance</h3>
                     <h2>$" . $accountInfoMatrix["money"][$i] . "</h2>
                     <div class=\"$accountOptionsContainerClass\">
