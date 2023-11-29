@@ -24,7 +24,7 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Account Creation</title>
+    <title>Banking Account Deletion</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -87,20 +87,20 @@
                 } else {
                     echo "No account found to delete.";
                 }
-                // mysqli_close($connection); 
+                mysqli_close($connection); 
             }
             ?>
             <form action = "accountDeletion.php" method = "post" >
-                <?php
-                $userID = $_SESSION["userID"];
-                require_once "database.php";
-                $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
-                $result = $connection->query($sql);
-                ?>
+
                 <h5>Which account would you like to delete?</h5>
                 <div class = "select_style">
                 <select name = "dropdown">
                     <?php
+                    $userID = $_SESSION["userID"];
+                    require_once "database.php";
+                    $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
+                    $result = $connection->query($sql);
+
                     if ($result->num_rows > 0) 
                     {
                         while ($row = $result->fetch_assoc()) {
@@ -112,7 +112,7 @@
                     {
                         echo "There are no accounts associated with this user ID.";
                     }
-                    // mysqli_close($connection);
+                    mysqli_close($connection);
                     ?>
                 </select>
                 </div>
