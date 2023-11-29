@@ -7,6 +7,8 @@
         $timeout_duration = 900; 
         $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
         if($time_lastLogin > $timeout_duration){
+            session_unset();
+            session_destroy();
             header('Location: login.php'); 
             exit(); 
         }else{
@@ -34,11 +36,11 @@
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
-        <div class="navbar"><a href='logout.php'>Log Out</a></div>
-        <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href='checkDeposit.php'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href = "accountpage.php">User Dashboard</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -47,7 +49,7 @@
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h>Live Session</h>
+        <h><b>Session Countdown:</b> </h>
         <h id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
@@ -104,8 +106,20 @@
                 $results = mysqli_query($connection, $sql); 
 
                   if($results){
-                      header("Location: accountpage.php");
+                    echo "<div class='alert alert-success'>Successfully Created Account!</div>";
+                    require_once "database.php"; 
+                    $userID = $_SESSION["userID"]; 
+                    if($accID == "Checkings"){
+                        $transaction = "Created New Checkings Account. Account Number = " . $uniqueID . " Initial Deposit = " . $money; 
 
+                    }else{
+                        $transaction = "Created New Savings Account. Account Number = " . $uniqueID . " Initial Deposit = " . $money; 
+                    }
+                    $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
+                    $document = $connection->query($transactions); 
+                    if(!$document){
+                        die("Failed to upload documentation"); 
+                    }
                   }else{
                       echo "<div class= 'alert alert-danger'>Unable to Register</div>";
                       echo mysqli_error($connection); 
@@ -114,8 +128,8 @@
              ?>
             <br>
             <div class="select_style">
-              <select>
-                  <option value = "TAccount">Account Type</option>
+              <select name = "accType">
+                  <option value = "TAccount" selected disabled>Account Type</option>
                   <option value="Savings">Savings</option>
                   <option value="Checkings">Checkings</option>
               </select>
@@ -130,5 +144,15 @@
             </div>
     </div>
     </div>
+    <script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
 </body>
 </html>

@@ -1,3 +1,23 @@
+<?php 
+session_start(); 
+if(!isset($_SESSION["authenticate"])){
+    header("location: MusaHome.html");
+    exit(); 
+}else{
+    $timeout_duration = 900; 
+    $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+    if($time_lastLogin > $timeout_duration){
+        header('Location: login.php'); 
+        exit(); 
+    }else{
+        $remaining_time = $timeout_duration - $time_lastLogin; 
+        $_SESSION['last_login_timestamp'] = time(); 
+        
+    }
+    
+}
+
+?>
 <!DOCTYPE html>
 <head>
     <title>Bank of Musa - Home</title>
@@ -11,9 +31,28 @@
         </div>
         <ul class="nav-links">
             <li class="spacer"></li>
-            <li><a href="registration.php">User Registration</a></li>
-            <li><a href="login.php">User Login</a></li>
+            <li><a href="accountpage.php">Account Dashboard</a></li>
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="about.php">About Us</a></li>
+            <li>
+                <script>
+                    var countdown = <?php echo json_encode($remaining_time);?>; 
+                    var minutes = Math.floor(countdown / 60); 
+                    var seconds = countdown % 60; 
+                    document.getElementById('time').textContent = countdown; 
+
+                </script>
+                <h3><b>Session Countdown: </b></h3>
+                <h4 id = "time"> &nbsp Minutes:
+                    <script type="text/javascript">
+                    document.write(minutes)
+                    </script>
+                    Seconds:
+                    <script type="text/javascript">
+                    document.write(seconds)
+                    </script>
+                </h4>
+            </li>
         </ul>
            
     </nav>
@@ -48,5 +87,15 @@
             </div>
         </section>
     </div>
+    <script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
 </body>
 </html>

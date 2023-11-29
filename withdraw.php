@@ -1,44 +1,45 @@
 <?php 
-session_start(); 
-if(!isset($_SESSION["authenticate"])){
-    header("location: login.php");
-    exit(); 
-}else{
-    $timeout_duration = 900; 
-    $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
-    if($time_lastLogin > $timeout_duration){
-        header('Location: login.php'); 
+    session_start(); 
+    if(!isset($_SESSION["authenticate"])){
+        header("location: login.php");
         exit(); 
     }else{
-        $remaining_time = $timeout_duration - $time_lastLogin; 
-        $_SESSION['last_login_timestamp'] = time(); 
+        $timeout_duration = 900; 
+        $time_lastLogin = time() - $_SESSION['last_login_timestamp']; 
+        if($time_lastLogin > $timeout_duration){
+            session_unset();
+            session_destroy();
+            header('Location: login.php'); 
+            exit(); 
+        }else{
+            $remaining_time = $timeout_duration - $time_lastLogin; 
+            $_SESSION['last_login_timestamp'] = time(); 
+            
+        }
         
     }
-    
-}
-
-require_once "database.php"; // Include your database connection file at the beginning
 ?>
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Of Musa: Withdraw</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="withdrawStyle.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banking Account Creation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="regStyling.css">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="withdraw.css">
 </head>
 
 <header>
-        <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <a href="Home.html"><img id='logo' width='350' height='50' src="logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
-        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href='checkDeposit.php'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -47,8 +48,8 @@ require_once "database.php"; // Include your database connection file at the beg
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h>Live Session</h>
-        <h id = "time"> &nbsp Minutes:
+        <h4>Session Countdown: </h4>
+        <h4 id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
             </script>
@@ -56,16 +57,13 @@ require_once "database.php"; // Include your database connection file at the beg
             <script type="text/javascript">
             document.write(seconds)
             </script>
-      </h>
-
+      </h4>
         </div>
 
 </header>
-<body>
+
     <div class = "container">
-    <h2> Withdraw From Account </h2>
-    <br>  
-    <h4>Please follow the steps below to withdraw from an account:</h4>
+        <h3>Please follow the steps below to withdraw from an account:</h3>
 
     <!-- FORM HTML + PHP -->
     <div class="form-group">
@@ -125,25 +123,33 @@ require_once "database.php"; // Include your database connection file at the beg
                     $newMoney = $currentMoney - $amount;
                     if($newMoney >= 0)
                     {
-                        $updateSql = "UPDATE account_info SET money = $newMoney WHERE uniqueID = $selectedAcc"; //Update money
+                        $updateSql = "UPDATE account_info SET money = $newMoney WHERE accID = $selectedAcc"; //Update money
                         $updateResult = $connection->query($updateSql);
                         if ($updateResult) 
                         {
-                            echo "SUCCESS: Your new balance in that account is: $newMoney"; 
+                            echo "<div class='alert alert-success'>Successfully Withdrew From Account!</div>";
+                            require_once "database.php"; 
+                            $userID = $_SESSION["userID"]; 
+                            $transaction = "Withdrew $". $amount ." from Account Number: " . $selectedAcc; 
+                            $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
+                            $document = $connection->query($transactions); 
+                            if(!$document){
+                                die("Failed to upload documentation"); 
+                            }
                         } 
                         else 
                         {
-                            echo "ERROR: Failed to update money in the account.";
+                            echo "<div class='alert alert-danger'>Failed to update money in the account!</div>";
                         }
                     } 
                     else 
                     {
-                        echo "ERROR: Cannot have a negative balance";
+                        echo "<div class='alert alert-danger'>Cannot have a negative balance!</div>";
                     }
                 } 
                 else 
                 {
-                    echo "ERROR: Cannot find account ID.";
+                    echo "<div class='alert alert-danger'>Cannot find account ID!</div>";
                 }
             }
             else 
@@ -154,13 +160,17 @@ require_once "database.php"; // Include your database connection file at the beg
         
         ?>
         </form>
-        <?php
-            $connection->close();
-        ?>
-        <div>
-            <button onclick = "window.location.href = 'accountpage.php'" class = "homeButton" >Back to Home Page</button>
-        </div>
     </div>
     </div>
+    <script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
 </body>
 </html>

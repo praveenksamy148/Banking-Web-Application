@@ -24,7 +24,7 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banking Account Creation</title>
+    <title>Banking Account Deletion</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -34,13 +34,13 @@
     <!-- Top Bar -->
     <header>
         <a href="Home.html"><img id='logo' width='300' height='50' src="logo.png"></a>
-        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
+        <div class="navbar"><a href='logMusaHome.php'>Home</a></div>
         <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='transfers.html' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='checkDeposit.php'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
-        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href = "accountpage.php">User Dashboard</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
@@ -49,7 +49,7 @@
             document.getElementById('time').textContent = countdown; 
 
         </script>
-        <h>Live Session</h>
+        <h>Live Session:</h>
         <h id = "time"> &nbsp Minutes:
             <script type="text/javascript">
             document.write(minutes)
@@ -72,7 +72,7 @@
         <br>
         <h4>Please follow the steps below to delete an account:</h4>
             <?php 
-            if(isset($_POST["confirm"])){
+            if(isset($_POST["submit"])){
                 $dropdown = $_POST["dropdown"]; 
                 require_once "database.php"; 
                 $query = "DELETE FROM account_info WHERE uniqueID = '$dropdown'";
@@ -83,24 +83,24 @@
                 }
                 
                 if(mysqli_affected_rows($connection) > 0){
-                    echo "Account deleted successfully.";
+                    echo "<div class= 'alert alert-success'>Account Successfully Deleted!</div>";
                 } else {
                     echo "No account found to delete.";
                 }
                 mysqli_close($connection); 
             }
             ?>
-            <form action = "accountDeletion.php" method = "post">
-                <?php
-                $userID = $_SESSION["userID"];
-                require_once "database.php";
-                $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
-                $result = $connection->query($sql);
-                ?>
+            <form action = "accountDeletion.php" method = "post" >
+
                 <h5>Which account would you like to delete?</h5>
                 <div class = "select_style">
                 <select name = "dropdown">
                     <?php
+                    $userID = $_SESSION["userID"];
+                    require_once "database.php";
+                    $sql = "SELECT uniqueID FROM account_info WHERE accID = $userID";
+                    $result = $connection->query($sql);
+
                     if ($result->num_rows > 0) 
                     {
                         while ($row = $result->fetch_assoc()) {
@@ -121,6 +121,16 @@
                 <input type = "submit" value = "Submit" name = "submit" >
             </div>
             </form>
+            <script>
+                var countdown = <?php echo json_encode($remaining_time); ?>; 
+                var timer = setInterval(function() {
+                    countdown--;
+                    var minutes = Math.floor(countdown / 60); 
+                    var seconds = countdown % 60; 
+                    document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+                    if(countdown <= 0) clearInterval(timer);
+                }, 1000);
+            </script>
         </div>
     </main>
 </html>

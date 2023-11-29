@@ -16,8 +16,6 @@ header {
     background-color: rgb(80, 23, 23); 
     box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
     margin-bottom: 15px;
-    font-size: 18px;
-    font-family: calibri;
 }
 
 body {
@@ -25,21 +23,20 @@ body {
     display: block;
     align-items: center;
     background-color: #f7f7f7;
-    font-family: calibri;
+    font-family: Arial, sans-serif;
 }
 
 .navbar {
     display: flex;
     padding: 1rem;
     color: white;
-    font-family: calibri;
+
 }
 
 .right {
     display: flex;
     margin-left: 29vw;
     justify-content: flex-end;
-    font-family: calibri;
 }
 
 #logo {
@@ -61,20 +58,18 @@ body {
 
 /* Container styles */
 .container {
-    max-width: 400px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 150px;
-    font-family: calibri;
 }
 
 /* Form styles */
 .form-group {
     margin-bottom: 15px;
-    font-family: calibri;
 }
 
 .homeButton {
@@ -84,17 +79,15 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-family: calibri;
 }
 
 input[type="number"]
 {
-    width: 350px;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 18px;
-    font-family: calibri;
 }
 
 input[type="submit"] {
@@ -104,12 +97,10 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-family: calibri;
 }
 
 input[type="submit"]:hover {
     background-color: #d8b59d;
-    font-family: calibri;
 }
 
 .form-group:last-child {
@@ -122,28 +113,16 @@ input[type="submit"]:hover {
 
 
 /* Style for the title */
-h2 {
-    text-align: center;
-    color: #333;
-    font-family: calibri;
-}
-
 h3 {
     text-align: center;
     color: #333;
-    font-family: calibri;
-}
-
-h4 {
-    text-align: center;
-    color: #333;
-    font-family: calibri;
+    font-size: 20px;
 }
 
 h5 {
     text-align: center;
     color: #333;
-    font-family: calibri;
+    font-size: 18px;
 }
 
 
@@ -152,11 +131,10 @@ h5 {
 .select_style {
     position: relative;
     display: inline-block;
-    font-family: calibri;
   }
 
   .select_style select {
-    width: 350px;
+    width: 400px;
     padding: 10px;
     font-size: 18px;
     border: 1px solid #ccc;
