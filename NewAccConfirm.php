@@ -78,70 +78,77 @@
                 $accID = $_SESSION["userID"];
                 $check = false;
                 $errorcount = 0;
-                while (!$check) 
-                {
-                    $possibleID = rand(111111111, 999999999);
-                    require_once "database.php"; 
-                    $sql = "SELECT accID FROM account_info WHERE accID = $possibleID";
-                    $accIDCheck = mysqli_query($connection, $sql);
-                    $test = mysqli_num_rows($accIDCheck);
-                    
-                    if (mysqli_num_rows($accIDCheck) == 0) 
+
+                if ($money > 0){
+                    while (!$check) 
                     {
-                        $uniqueID = $possibleID;
-                        $check = true;
-                    } 
-                    else 
-                    {
-                        $errorcount++;
-                        if($errorcount > 100);
+                        $possibleID = rand(111111111, 999999999);
+                        require_once "database.php"; 
+                        $sql = "SELECT accID FROM account_info WHERE accID = $possibleID";
+                        $accIDCheck = mysqli_query($connection, $sql);
+                        $test = mysqli_num_rows($accIDCheck);
+                        
+                        if (mysqli_num_rows($accIDCheck) == 0) 
                         {
-                            echo "ERROR: UNABLE TO CREATE UNIQUE ID";
-                            exit;
+                            $uniqueID = $possibleID;
+                            $check = true;
+                        } 
+                        else 
+                        {
+                            $errorcount++;
+                            if($errorcount > 100);
+                            {
+                                echo "ERROR: UNABLE TO CREATE UNIQUE ID";
+                                exit;
+                            }
                         }
                     }
-                }
-                require_once "database.php"; 
-                $sql = "INSERT INTO account_info (accID, money, accType, uniqueID) VALUES ('$accID','$money', '$accType', '$uniqueID')";
-                $results = mysqli_query($connection, $sql); 
-
-                  if($results){
-                    echo "<div class='alert alert-success'>Successfully Created Account!</div>";
                     require_once "database.php"; 
-                    $userID = $_SESSION["userID"]; 
-                    if($accID == "Checkings"){
-                        $transaction = "Created New Checkings Account. Account Number = " . $uniqueID . " Initial Deposit = " . $money; 
+                    $sql = "INSERT INTO account_info (money, accType, accID, uniqueID) VALUES ('$money','$accType', '$accID', '$uniqueID')";
+                    $results = mysqli_query($connection, $sql); 
 
+                    if($results){
+                        echo "<div class='alert alert-success'>Successfully Created Account!</div>";
+                        require_once "database.php"; 
+                        $userID = $_SESSION["userID"]; 
+                        if($accID == "Checkings"){
+                            $transaction = "Created New Checkings Account. Account Number = " . $uniqueID . " Initial Deposit = " . $money; 
+
+                        }else{
+                            $transaction = "Created New Savings Account. Account Number = " . $uniqueID . " Initial Deposit = " . $money; 
+                        }
+                        $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
+                        $document = $connection->query($transactions); 
+                        if(!$document){
+                            die("Failed to upload documentation"); 
+                        }
                     }else{
-                        $transaction = "Created New Savings Account. Account Number = " . $uniqueID . " Initial Deposit = " . $money; 
+                        echo "<div class= 'alert alert-danger'>Unable to Register</div>";
+                        echo mysqli_error($connection); 
                     }
-                    $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
-                    $document = $connection->query($transactions); 
-                    if(!$document){
-                        die("Failed to upload documentation"); 
-                    }
-                  }else{
-                      echo "<div class= 'alert alert-danger'>Unable to Register</div>";
-                      echo mysqli_error($connection); 
-                  }
-              }
+                } else {
+                    echo "Cannot create an account with a negative balance.";
+                }
+
+            }
              ?>
             <br>
             <div class="select_style">
-              <select name = "accType">
-                  <option value = "TAccount" selected disabled>Account Type</option>
-                  <option value="Savings">Savings</option>
-                  <option value="Checkings">Checkings</option>
-              </select>
+                <select name = "accType" required>
+                    <option value = "" selected disabled>Account Type</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Checkings">Checkings</option>
+                </select>
             </div>
             <br>
             <br>
             <div class = "form-group">
-                <input type = "number" name = "money" placeholder = "Initial Deposit: ">
+                <input type = "number" name = "money" placeholder = "Initial Deposit: " step = 0.01 required>
             </div>
             <div class = "form-group">
                 <input type = "submit" value = "Enter" name = "submit" >
             </div>
+        </form>
     </div>
     </div>
     <script>
@@ -153,6 +160,6 @@
         document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
         if(countdown <= 0) clearInterval(timer);
     }, 1000);
-</script>
+    </script>
 </body>
 </html>

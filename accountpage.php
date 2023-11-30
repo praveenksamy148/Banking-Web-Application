@@ -37,8 +37,8 @@ if(!isset($_SESSION["authenticate"])){
                 $accountInfoMatrix["accID"][] = $row["uniqueID"];
                 $accountInfoMatrix["money"][] = $row["money"];
                 $accountInfoMatrix["userID"][] = $row["accID"];
-                if ($row["accType"] == 1) {
-                    $accountInfoMatrix["accType"][] = "Checking";
+                if ($row["accType"] == "Checkings") {
+                    $accountInfoMatrix["accType"][] = "Checkings";
                 } else {
                     $accountInfoMatrix["accType"][] = "Savings";
                 }

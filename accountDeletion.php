@@ -87,7 +87,6 @@
                 } else {
                     echo "No account found to delete.";
                 }
-                mysqli_close($connection); 
             }
             ?>
             <form action = "accountDeletion.php" method = "post" >
@@ -112,7 +111,6 @@
                     {
                         echo "There are no accounts associated with this user ID.";
                     }
-                    mysqli_close($connection);
                     ?>
                 </select>
                 </div>

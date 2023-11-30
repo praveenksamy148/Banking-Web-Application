@@ -146,7 +146,7 @@
                 
                 <div class = "select_style">
                     <h5> Select an account: </h5>
-                    <select name="dropdown">
+                    <select name="dropdown" required>
                         <?php
                             if ($result->num_rows > 0) 
                             {
@@ -164,11 +164,11 @@
                 </div>
                 <div>
                     <br>
-                    <input type = "number" placeholder="Amount:" name="moneyAmount">
+                    <input type = "number" placeholder="Amount:" name="moneyAmount" step=0.01 required>
                 </div>
                 <br>
                 <h5>Please upload a photo</h5>
-                <input type="file" name="image">
+                <input type="file" name="image" required>
                 <br>
                 <br>
                 <input type="submit" value="Enter" name="confirm">
