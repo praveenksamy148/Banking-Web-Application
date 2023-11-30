@@ -93,14 +93,16 @@
 
                     $targetDirectory = "checkUploads/";
                     $targetFile = $targetDirectory . time() . basename($_FILES["image"]["name"]);
-                    $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION)); 
-                    if($fileType != "img"){
+                    $fileExtension = pathinfo(basename($_FILES["image"]["name"]), PATHINFO_EXTENSION);
+                    $allowedImageTypes = ["png", "jpg", "jpeg"];
+                    if (!in_array(strtolower($fileExtension), $allowedImageTypes)){
                         echo "<script>
-                                alert('Only IMG files are accepted!');
+                                alert('Only png, jpg, and jpeg files are accepted!');
                                 window.location.href='checkDeposit.php';
                               </script>";
                         exit();
                     }
+
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
                         $imagePath = $targetFile;
                         

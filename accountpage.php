@@ -53,7 +53,7 @@ if(!isset($_SESSION["authenticate"])){
     }
 
     if (!$accountInfoMatrix["accType"][0]) {
-        header("Location: /Banking_App/Banking-Web-Application/NewAccConfirm.php");
+        header("Location: /NewAccConfirm.php");
         exit();
     }
     
