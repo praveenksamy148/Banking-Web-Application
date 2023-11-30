@@ -13,54 +13,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Of Musa: Contact Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="regStyling.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <title>Contact Us</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        textarea {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            resize: vertical;
-        }
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #0056b3;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #003d7a;
-        }
-    </style>
-</head>
+    <link rel="stylesheet" href="contactStyle.css">
+    </head>
+
+    <header style="display: flex; align-items: center;">
+        <a href="Home.html"><img id='logo' width='200' height='50' src="logo.png"></a>
+        <div class="navbar"><a href='logMusaHome.php'>Home</a></div>
+        <div class="navbar"><a href='withdraw.php'>Withdraw Funds</a></div>       
+        <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
+        <div class="navbar"><a href='userFundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href = "contact.php">Contact Us</a></div>
+
+    </header>
 <body>
     <div class="container">
         <?php 
@@ -68,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              use PHPMailer\PHPMailer\SMTP; 
              use PHPMailer\PHPMailer\Exception; 
  
-            require '../vendor/autoload.php'; 
+            require 'C:\xampp\htdocs\phpmailer\vendor\autoload.php'; 
             if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "<div class= 'alert alert-success'>Message Sent! Admin Member will contact you shortly. </div>";
                 $concern = $_POST["concern"];
@@ -97,11 +69,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }  
             }
         ?>
+        <h3>Please fill out the box to contact Bank Of Musa support: </h3>
+        <br>
+        <div class="form-group">
             <form action="contact.php" method="post">
-                <label for="concern">Your Concern:</label>
-                <textarea id="concern" name="concern" rows="6" placeholder="Please enter your concerns here..."></textarea>
-                <input type="submit" value = "submit" name = "submit">
+                <textarea id="concern" name="concern" rows="6" placeholder="Please enter your questions or concerns here..."></textarea>
+                <br>
+                <br>
+                <input type="submit" value = "Submit" name = "submit">
             </form>
+        </div>
     </div>
 </body>
 </html>

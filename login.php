@@ -95,7 +95,7 @@
         use PHPMailer\PHPMailer\SMTP; 
         use PHPMailer\PHPMailer\Exception; 
 
-        require '../vendor/autoload.php'; 
+        require 'C:\xampp\htdocs\phpmailer\vendor\autoload.php'; 
 
         if(isset($_POST["login"])){
             $email = $_POST["email"]; 
