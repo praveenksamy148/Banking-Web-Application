@@ -1,0 +1,370 @@
+@media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+
+* {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+ 
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: maroon; 
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    margin-bottom: 15px;
+}
+
+#logo {
+    width: 300px;
+    height: 50px;
+    aspect-ratio: 1/1.15;
+    padding: 0.4rem;
+  }
+
+/* Navbar Styling */
+
+.navbar {
+    display: flex;
+    padding: 1rem;
+    color: aliceblue;
+    flex-grow: 1;
+}
+
+/* 
+   If transferring footer styling to a different page, be sure to transfer 
+   the styling for .col > a, ul li, and li > a
+*/
+
+.navbar > a, .account-quick-nav > a, .col > a, ul li, li > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* 
+   If transferring footer styling to a different page, be sure to transfer 
+   the styling for .col > a:hover and li > a:hover 
+*/
+
+.navbar > a:hover, .account-quick-nav > a:hover, .col > a:hover, li > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.border {
+    margin-bottom: 55px;
+    -webkit-user-select: none;
+    user-select: none;
+    color: aliceblue;
+}
+
+.container-quick-nav {
+    display: flex;
+    padding: 5px 0;
+    padding-bottom: 10px;
+    margin: 0 5px;
+    margin-top: 70px;
+}
+
+.account-quick-nav {
+    background-color: maroon;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 2rem;
+    height: 100px;
+    border: solid;
+    border-width: 2px;
+    border-color: black;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    margin: 0 5px;
+}
+
+.account-quick-nav > button {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 15px;
+}
+
+.account-quick-nav > button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #fff;
+}
+
+/* Transaction Styling */
+
+.transaction-title, .container-transaction {
+    margin: 50px;
+}
+
+.transaction-title {
+    background-color: maroon;
+    color:aliceblue;
+    padding: 5px;
+    border: solid;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-color: maroon;
+    margin-bottom: 0;
+}
+
+.container-transaction {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-color: gray;
+    padding: 10px;
+    margin-top: 0px;
+    justify-content: center;
+
+}
+
+.transaction-box-outer {
+    display: flex;
+    border: solid;
+    border-color: gray;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.transaction-box-inner > p {
+    display: flex;
+    font-size: 12px;
+    margin: 0 5px;
+    padding: 5px;
+}
+
+.transaction-timestamp, .updated-balance {
+    border-top: solid;
+    border-color: gray;
+}
+
+.last {
+    border-bottom: solid;
+}
+
+/* Footer Styles */
+
+footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    background: linear-gradient(to bottom, maroon, black);
+    color : #fff;
+    padding: 30px 0;
+    border-top-left-radius: 125px;
+    border-top-right-radius: 125px;
+    font-size: 13px;
+    line-height: 20px;
+    margin-top: 20px;
+}
+.row {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.col {
+    flex-basis: 20%;
+    padding: 10px;
+}
+
+.col h3 {
+    width: fit-content;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+ul {
+    padding-left: 0;
+}
+
+ul li {
+    list-style: none;
+    margin-bottom: 12px;
+}
+
+form {
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 50px;
+}
+
+form .fa-regular {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+form input { 
+    width: 100%;
+    background: transparent;
+    color: #ccc;
+    border: 0;
+    outline: none;
+}
+
+form button {
+    background: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+form button .fa-solid {
+    font-size: 16px;
+    color: #ccc;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.fa-brands {
+    flex-basis: 25%;
+    font-size: 20px;
+}
+
+hr {
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    margin: auto;
+}
+.copyright {
+    text-align: center;
+}
+
+.bottom {
+    border-bottom: 1px solid #ccc;
+}
+
+/* Modal Styling */
+
+.modal-btn {
+    border: none;
+    border-radius: 15px;    
+    background: black;
+    color: #fff;
+    font-size: 15px;
+    height: 3rem;    
+}
+
+.modal{
+    border-radius: 15px;
+    border: none;
+    width: 50%;
+    min-width: 292px;
+    height: 75%;
+    padding: 10px;
+    background-color: #ecf0f1;
+    box-shadow: rgba(128, 0, 0, 1) inset;
+}
+
+.modal::backdrop {
+    background: rgba(128, 0, 0, 0.8);
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+    background-color: transparent;
+    height: 99%;
+    width: 99%;
+    margin-left: 0.25vh;
+    margin-top: 0.25vh;
+    min-width: 270px;
+}
+
+.modal-container > h2 {
+    text-align: center;
+    width: 90%;
+    border-bottom: solid;
+    align-self: center;
+    padding: 5px;
+}
+
+.modal-container > p {
+    padding: 5px;
+}
+
+.card {
+    width: 262px;
+    height: 160px;
+    align-self: center;
+    background-color: black;
+    color: #fff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.stripe {
+    height: 5%;
+    width: 100%;
+    background-color: red;
+    margin-top:5%;
+}
+.inner-card-container {
+    display: flex;
+    flex-direction: row;
+
+}
+.card-logo {
+    width: 50%;
+    align-self: center;
+}
+.card-number {
+    width: 100%;
+    padding: 5px;
+}
+.card-type {
+    margin-right: 5%;
+}
+.expiration, .card-name {
+    font-size: 10px;
+    margin: 5%;
+}
