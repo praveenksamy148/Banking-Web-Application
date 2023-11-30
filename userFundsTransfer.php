@@ -30,18 +30,38 @@ if(!isset($_SESSION["authenticate"])){
     <link rel="stylesheet" href="fundTransfer.css">
 </head>
     <header>
-        <a href="MusaHome.html"><img id='logo' width='300' height='50' src="logo.png"></a>
-        <div class="navbar"><a href='MusaHome.html'>Home</a></div>
-        <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
-        <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
-        <div class="navbar"><a href='fundsTransfer.php' style='flex-grow: 1;'>Transfer Funds</a></div>
-        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+    <a href="Home.html"><img id='logo' width='350' height='50' src="logo.png"></a>
+    <div class="navbar"><a href='logMusaHome.php'>Home</a></div>   
+        <div class="navbar"><a href = "atmAccountPicker.php">ATM</a></div>   
+        <div class="navbar"><a href='checkdeposit.php'>Make a Deposit</a></div>      
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
+        <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
+        <div class="navbar"><a href = "accountpage.php">User Dashboard</a></div>
+        <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class = "navbar">
+        <script>
+            var countdown = <?php echo json_encode($remaining_time);?>; 
+            var minutes = Math.floor(countdown / 60); 
+            var seconds = countdown % 60; 
+            document.getElementById('time').textContent = countdown; 
+
+        </script>
+        <h4 style = "color: white";>Session Countdown: </h4>
+        <h4 id = "time" style = "color: white"; > &nbsp Minutes:
+            <script type="text/javascript">
+            document.write(minutes)
+            </script>
+            Seconds:
+            <script type="text/javascript">
+            document.write(seconds)
+            </script>
+      </h4>
+        </div>
     </header>
 <body>
 <div class="container">
         <h1>Funds Transfer</h1>
-        <form action="fundsTransfer.php" method="post">
+        <form action="userFundsTransfer.php" method="post">
         <input type="hidden" name="transferFunds" value="1">
         <div class="form-group">
         <?php
@@ -143,3 +163,14 @@ if(!isset($_SESSION["authenticate"])){
         }
     }
 ?>
+<script>
+    var countdown = <?php echo json_encode($remaining_time); ?>; 
+    var timer = setInterval(function() {
+        countdown--;
+        var minutes = Math.floor(countdown / 60); 
+        var seconds = countdown % 60; 
+        document.getElementById('time').textContent = minutes + " Minutes : " + seconds + " Seconds"; 
+        if(countdown <= 0) clearInterval(timer);
+    }, 1000);
+</script>
+</body>
