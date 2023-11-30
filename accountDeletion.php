@@ -75,17 +75,26 @@
             if(isset($_POST["submit"])){
                 $dropdown = $_POST["dropdown"]; 
                 require_once "database.php"; 
-                $query = "DELETE FROM account_info WHERE uniqueID = '$dropdown'";
-                $result = mysqli_query($connection, $query);
+                $select = "SELECT * FROM account_info WHERE uniqueID = '$dropdown'"; 
+                $result = mysqli_query($connection, $select);
                 
                 if(!$result){
                     die("Query failed: ". mysqli_error($connection));
                 }
-                
-                if(mysqli_affected_rows($connection) > 0){
-                    echo "<div class= 'alert alert-success'>Account Successfully Deleted!</div>";
-                } else {
-                    echo "No account found to delete.";
+                if(mysqli_num_rows($result) == 1){
+                    $row = mysqli_fetch_assoc($result); 
+                    if($row["money"] == 0){
+                        require_once "database.php"; 
+                        $query = "DELETE FROM account_info WHERE uniqueID = '$dropdown'";
+                        $delete = mysqli_query($connection, $query);
+                        if(mysqli_affected_rows($connection) > 0){
+                            echo "<div class= 'alert alert-success'>Account Successfully Deleted!</div>";
+                        } else {
+                            echo "<div class= 'alert alert-danger'>No account found to delete.</div>";
+                        } 
+                    }else{
+                        echo "<div class= 'alert alert-danger'>Make Sure Account Has $0 Balance. Transfer or Withdraw Funds is Needed!</div>";
+                    }
                 }
             }
             ?>
