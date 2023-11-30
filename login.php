@@ -87,11 +87,10 @@
     <div class="container">
         <h1 style= "color:white"><b>User Login</b></h1>
     <?php 
-        //use PHPMailer\PHPMailer\PHPMailer; 
-        //use PHPMailer\PHPMailer\SMTP; 
-        //use PHPMailer\PHPMailer\Exception; 
-        //comment out 
-        //require '../vendor/autoload.php'; 
+        use PHPMailer\PHPMailer\PHPMailer; 
+        use PHPMailer\PHPMailer\SMTP; 
+        use PHPMailer\PHPMailer\Exception; 
+        require 'vendor/autoload.php'; 
 
         if(isset($_POST["login"])){
             $email = $_POST["email"]; 
@@ -113,7 +112,7 @@
                     
                 }
                     // comment try-catch statement out to avoid 2-factor authentication
-                    /*
+                    
                     try{
                         $mail->SMTPDebug = 0; 
                         $mail->isSMTP();
@@ -137,11 +136,11 @@
                     }catch(Exception $e){
                         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                     }  
-                    */
+                    
                 
             } else {
                 echo "<div class='alert alert-danger'>Incorrect Login!</div>";
-                // echo "User not found."; 
+                echo "User not found."; 
             }
             mysqli_close($connection); 
         }

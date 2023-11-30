@@ -27,10 +27,12 @@ if(!isset($_SESSION["authenticate"])){
         "userID" => array()
     );
 
+    
+
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)){
             // double check your column/table names here 
-            if ($_SESSION["userID"] == $row["uniqueID"] ) {
+            if ($_SESSION["userID"] == $row["uniqueID"]) {
                 $accountInfoMatrix["accountId"][] = $row["account_id"];
                 $accountInfoMatrix["balance"][] = $row["balance"];
                 $accountInfoMatrix["userID"][] = $row["uniqueID"];
@@ -66,7 +68,7 @@ if(!isset($_SESSION["authenticate"])){
    <!--Alt shadows for the accounts box-shadow: rgba(80, 23, 23, 0.4) 5px 5px, rgba(80, 23, 23, 0.3) 10px 10px, rgba(80, 23, 23, 0.2) 15px 15px, rgba(80, 23, 23, 0.1) 20px 20px, rgba(80, 23, 23, 0.05) 25px 25px;-->
    
     <header>
-        <a href="MusaHome.html"><img id='logo' width='300' height='50' src="logo.png"></a>
+        <a href="MusaHome.html"><img id='logo' width='300' height='50' src="homeImages/logo.png"></a>
         <div class="navbar"><a href='MusaHome.html'>Home</a></div>
         <div class="navbar"><a href='NewAccConfirm.php'>Checking & Savings</a></div>       
         <div class="navbar"><a href='deposits.html'>Make a Deposit</a></div>      
@@ -76,7 +78,7 @@ if(!isset($_SESSION["authenticate"])){
         
     </header>
     <body>
-        <!-- <h1>Welcome Back <?php echo $_SESSION["firstName"]?><h1> -->
+        <h1>Welcome Back <?php echo $_SESSION["firstName"]?><h1>
         <div class="first-account-container">
             <div class="account-container-top">
                 <h1>Ignore this.</h1>
@@ -108,7 +110,7 @@ if(!isset($_SESSION["authenticate"])){
                     <h3>Available balance</h3>
                     <h2>$" . $accountInfoMatrix["balance"][$i] . "</h2>
                     <div class=\"$accountOptionsContainerClass\">
-                        <p class=\"$accountOptionsClass\"><a href='accountdetails.html'>Account Details</a></p>
+                        <p class=\"$accountOptionsClass\"><a href='accountdetails.php'>Account Details</a></p>
                         <p class=\"$accountOptionsClass\"><a href='carddetails.html'>My Card</a></p>
                         <p class=\"$accountOptionsClass\"><a href='bills.html'>Pay Bills</a></p>
                         <p class=\"$accountOptionsClass\"><a href='transfers.html'>Transfer</a></p>
