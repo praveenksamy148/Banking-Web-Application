@@ -33,7 +33,7 @@ if(!isset($_SESSION["authenticate"])){
             <li class="spacer"></li>
             <li><a href="accountpage.php">Account Dashboard</a></li>
             <li><a href="logout.php">Log Out</a></li>
-            <li><a href="about.php">About Us</a></li>
+            <li><a href="question.html">Common Questions</a></li>
             <li>
                 <script>
                     var countdown = <?php echo json_encode($remaining_time);?>; 

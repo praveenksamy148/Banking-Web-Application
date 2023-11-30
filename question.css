@@ -1,5 +1,66 @@
+@media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+header {
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(80, 23, 23); 
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-family: calibri;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    margin-top: 75px;
+    display: block;
+    align-items: center;
+    background-color: #f7f7f7;
+    font-family: calibri;
+}
+
+.navbar {
+    display: flex;
+    padding: 1rem;
+    color: white;
+    font-family: calibri;
+}
+
+.right {
+    display: flex;
+    margin-left: 29vw;
+    justify-content: flex-end;
+    font-family: calibri;
+}
+
+#logo {
+    width: max(75px, 18vw);
+    aspect-ratio: 1/1.15;
+    padding: 0.4rem;
+  }
+
+.navbar > a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.navbar > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+body {
+    font-family: calibri;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
@@ -17,6 +78,12 @@ body {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.faq:hover {
+    background-color: #e0e0e0;
     cursor: pointer;
 }
 

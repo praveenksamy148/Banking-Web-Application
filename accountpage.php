@@ -82,6 +82,7 @@ if(!isset($_SESSION["authenticate"])){
         <div class="navbar"><a href = "NewAccConfirm.php">Create Account</a></div>
         <div class="navbar"><a href = "accountDeletion.php">Delete Account</a></div>
         <div class="navbar"><a href='logout.php'>Log Out</a></div>
+        <div class="navbar"><a href='contact.php'>Contact Support</a></div>
         <div class = "navbar">
         <script>
             var countdown = <?php echo json_encode($remaining_time);?>; 
