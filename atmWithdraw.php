@@ -124,11 +124,18 @@
                         $result2 = mysqli_query($connection, $query2);
                         if(!$result2){
                             die("Query failed: ". mysqli_error($connection));
+                        } else {
+                            $transaction = "Successfully Withdrawn at an ATM From Account: " . $currAccID . " Amount = $". $withdrawAmount; 
+                            $transactions = "INSERT INTO user_transactions (accID, transaction) VALUES ('$userID', '$transaction')"; 
+                            $document = $connection->query($transactions); 
+                            if(!$document){
+                                die("Failed to upload documentation"); 
+                            }
+                            echo "<script>
+                                    alert('You have successfully withdrawn $$withdrawAmount. Your new balance is $$newMoney.');
+                                    window.location.href='atmMenu.php';
+                                </script>";
                         }
-                        echo "<script>
-                                alert('You have successfully withdrawn $$withdrawAmount. Your new balance is $$newMoney.');
-                                window.location.href='atmMenu.php';
-                            </script>";
                     }
                 } else {
                     echo "No records found";
