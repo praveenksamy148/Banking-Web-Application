@@ -125,16 +125,19 @@ body {
     text-decoration-color: white;
 }
 
-.account-options > a {
+.account-options > a, .account-options > button {
     color: #4b4b4b;
     text-decoration: none;
+    background-color: #AEAEAE;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
 }
 
-.account-options > a:hover {
+.account-options > a:hover, .account-options > button:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-
 
 
 .centerBox {
@@ -185,4 +188,93 @@ body {
 
 .centerBox a:hover {
     color:red;
+}
+
+/* Modal Styling */
+.modal-btn {
+    border: none;
+    border-radius: 15px;    
+    background: black;
+    color: #fff;
+    font-size: 15px;
+    height: 3rem;    
+}
+
+.modal{
+    border-radius: 15px;
+    border: none;
+    width: 50%;
+    min-width: 292px;
+    height: 75%;
+    padding: 10px;
+    background-color: #ecf0f1;
+    box-shadow: rgba(128, 0, 0, 1) inset;
+}
+
+.modal::backdrop {
+    background: rgba(128, 0, 0, 0.8);
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+    background-color: transparent;
+    height: 99%;
+    width: 99%;
+    margin-left: 0.25vh;
+    margin-top: 0.25vh;
+    min-width: 270px;
+}
+
+.modal-container > h2 {
+    text-align: center;
+    width: 90%;
+    border-bottom: solid;
+    align-self: center;
+    padding: 5px;
+}
+
+.modal-container > p {
+    padding: 5px;
+}
+
+.card {
+    width: 262px;
+    height: 160px;
+    align-self: center;
+    background-color: black;
+    color: #fff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.stripe {
+    height: 5%;
+    width: 100%;
+    background-color: red;
+    margin-top:5%;
+}
+.inner-card-container {
+    display: flex;
+    flex-direction: row;
+
+}
+.card-logo {
+    width: 50%;
+    align-self: center;
+}
+.card-number {
+    width: 100%;
+    padding: 5px;
+}
+.card-type {
+    margin-right: 5%;
+}
+.expiration, .card-name {
+    font-size: 10px;
+    margin: 5%;
 }

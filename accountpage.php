@@ -37,11 +37,7 @@ if(!isset($_SESSION["authenticate"])){
                 $accountInfoMatrix["accID"][] = $row["uniqueID"];
                 $accountInfoMatrix["money"][] = $row["money"];
                 $accountInfoMatrix["userID"][] = $row["accID"];
-                if ($row["accType"] == "Checkings") {
-                    $accountInfoMatrix["accType"][] = "Checkings";
-                } else {
-                    $accountInfoMatrix["accType"][] = "Savings";
-                }
+                $accountInfoMatrix["accType"][] = $row["accType"];
             }
         }
     }
@@ -114,7 +110,7 @@ if(!isset($_SESSION["authenticate"])){
             <h3>Available balance</h3>
             <h2><?php echo " $" .$accountInfoMatrix["money"][0]?></h2>
             <div class="account-options-container">
-                <p class="account-options"><a href='accountdetails.html'>Account Details</a></p>
+                <p class="account-options"><a href='accountdetails.php'>Account Details</a></p>
                 <p class="account-options"><a href='carddetails.html'>Delete Account</a></p>
                 <p class="account-options"><a href='bills.html'>Pay Bills</a></p>
                 <p class="account-options"><a href='transfers.html'>Transfer</a></p>
@@ -128,23 +124,60 @@ if(!isset($_SESSION["authenticate"])){
             $accountOptionsContainerClass = "account-options-container";
             $accountOptionsClass = "account-options";
 
+            $modal = "modal";
+            $modalContainer = "modal-container";
+            $card = "card";
+            $stripe = "stripe";
+            $innerCardContainer = "inner-card-container";
+            $cardNumber = "card-number";
+            $cardType = "card-type";
+            $cardName = "card-name";
+            $expiration = "expiration";
+            $cardLogo = "card-logo";
+            $modalbtn = "modal-btn";
+            $openCardBtn = "open-card-btn";
+
             for ($i = 1; $i < $numOfAccounts; $i++) {
+
+                $accountType = $accountInfoMatrix["accType"][$i];
+
                 echo "<div class=\"$accountContainerClass\">
                     <div class=\"$accountContainerTopClass\">
                         <h1>Ignore this.</h1>
                     </div>
-                    <h1>" . $accountInfoMatrix["accType"][$i] . " #" . $accountInfoMatrix["accID"][$i] . "</h1>
+                    <h1>" . $accountType . " #" . $accountInfoMatrix["accID"][$i] . "</h1>
                     <h3>Available balance</h3>
                     <h2>$" . $accountInfoMatrix["money"][$i] . "</h2>
                     <div class=\"$accountOptionsContainerClass\">
-                        <p class=\"$accountOptionsClass\"><a href='accountdetails.html'>Account Details</a></p>
-                        <p class=\"$accountOptionsClass\"><a href='carddetails.html'>My Card</a></p>
+                        <p class=\"$accountOptionsClass\"><button onclick=\"openCardModal('" . $i . "')\">My Card</button></p>
                         <p class=\"$accountOptionsClass\"><a href='bills.html'>Pay Bills</a></p>
                         <p class=\"$accountOptionsClass\"><a href='transfers.html'>Transfer</a></p>
                         <p class=\"$accountOptionsClass\"><a href='deposits.html'>Deposit</a></p>
                     </div>
                 </div>";
-
+                
+                echo "<dialog class=\"$modal\" id='" . $i . "'>
+                        <div class=\"$modalContainer\">
+                            <h2>My Card</h2>
+                            <div class=\"$card\">
+                                <div class=\"$stripe\"></div>
+                                <div class=\"$innerCardContainer\">
+                                    <p class=\"$cardNumber\">XXXX-XXXX-XXXX-1234</p>
+                                    <p class=\"$cardType\">DEBIT</p>
+                                </div>
+                                <div class=\"$innerCardContainer\">
+                                    <p class=\"$cardName\">" . $_SESSION["firstname"] . " " . $_SESSION["lastname"] ."</p>    
+                                    <p class=\"$expiration\">Valid Thru 11/30/28</p>
+                                </div>
+                                <img class=\"$cardLogo\" src=\"logo.png\" title='Bank of MUSA logo'>
+                            </div>
+                            <p>Account Type: " . $accountType . "</p>
+                            <p>Account Address: " . $_SESSION["address"] . "</p>
+                            <button class=\"$modalbtn\" onclick=\"closeCardModal('" . $i . "')\">Close Modal</button>                    
+                        </div>
+                    </dialog>
+                    <script src=\"carddetails.js\"></script>
+                    ";
 
             }
 

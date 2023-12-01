@@ -111,9 +111,11 @@
                 if(password_verify($password, $row["password"])){
                     session_start();
                     $_SESSION["user"] = "yes"; 
-                    $firstName = $row["first_name"]; 
+                    $_SESSION["firstname"] = $row["first_name"]; 
+                    $_SESSION["lastname"] = $row["last_name"];
                     $_SESSION["username"] = $row["email"]; 
-                    $_SESSION["userID"] = $row["ID"]; 
+                    $_SESSION["userID"] = $row["ID"];
+                    $_SESSION["address"] = $row["address"];
                     $mail = new PHPMailer(true); 
 
                     // comment try-catch statement out to avoid 2-factor authentication

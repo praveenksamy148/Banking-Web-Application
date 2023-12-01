@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->Password = 'pmbwfjyjrcrkjnfm'; 
                     $mail->SMTPSecure = "tls"; 
                     $mail->Port = 587; 
-                    $mail->setFrom('pravee.samy@gmail.com', $firstName, 0); 
+                    $mail->setFrom('pravee.samy@gmail.com', $_SESSION["username"], 0); 
                     $mail->addAddress('bankmusa6@gmail.com', 'Bank of Musa'); 
                     // $mail->addAddress($email, $firstName); 
                     $mail->isHTML(true); 
