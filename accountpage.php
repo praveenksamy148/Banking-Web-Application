@@ -106,7 +106,7 @@ if(!isset($_SESSION["authenticate"])){
             <div class="account-container-top">
                 <h1>Ignore this.</h1>
             </div>
-            <h1><?php echo $accountInfoMatrix["accType"][0]?> <?php echo " #". $accountInfoMatrix["accID"][0] ?></h1>
+            <h1><?php echo $accountInfoMatrix["accType"][0]?> <?php echo " " . $accountInfoMatrix["accID"][0] ?></h1>
             <h3>Available balance</h3>
             <h2><?php echo " $" .$accountInfoMatrix["money"][0]?></h2>
             <div class="account-options-container">
