@@ -74,12 +74,12 @@
             <?php
             if(isset($_POST["submit"])){
                 $accType = $_POST["accType"]; 
-                $money = $_POST["money"]; 
+                $money = 0; 
                 $accID = $_SESSION["userID"];
                 $check = false;
                 $errorcount = 0;
 
-                if ($money > 0){
+                if ($money >= 0){
                     while (!$check) 
                     {
                         $possibleID = rand(111111111, 999999999);
@@ -142,9 +142,6 @@
             </div>
             <br>
             <br>
-            <div class = "form-group">
-                <input type = "number" name = "money" placeholder = "Initial Deposit: " step = 0.01 required>
-            </div>
             <div class = "form-group">
                 <input type = "submit" value = "Enter" name = "submit" >
             </div>
